@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:nine_aki_bro/onboarding/onboarding_screen.dart';
-import 'package:nine_aki_bro/splash/widgets/sliding_text.dart';
+import 'package:nine_aki_bro/features/splash/widgets/sliding_text.dart';
+
+import '../onboarding/onboarding_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
