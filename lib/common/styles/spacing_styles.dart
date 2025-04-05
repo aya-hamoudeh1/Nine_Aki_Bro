@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import '../../utils/constants/sizes.dart';
+import '../../core/constants/sizes.dart';
 
 class TSpacingStyle {
   static const EdgeInsetsGeometry paddingWithAppBarHeight = EdgeInsets.only(

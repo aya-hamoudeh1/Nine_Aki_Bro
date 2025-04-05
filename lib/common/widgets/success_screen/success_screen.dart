@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import '../../../utils/constants/sizes.dart';
-import '../../../utils/constants/text_string.dart';
-import '../../../utils/helpers/helper_functions.dart';
+import '../../../core/constants/sizes.dart';
+import '../../../core/constants/text_string.dart';
+import '../../../core/helpers/helper_functions.dart';
 import '../../styles/spacing_styles.dart';
 
 class SuccessScreen extends StatelessWidget {

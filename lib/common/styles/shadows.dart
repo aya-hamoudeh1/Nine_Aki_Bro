@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import '../../utils/constants/colors.dart';
+
+import '../../core/constants/colors.dart';
 
 class TShadowStyle {
 

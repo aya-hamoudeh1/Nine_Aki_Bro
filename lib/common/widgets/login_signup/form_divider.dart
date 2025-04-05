@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-
-import '../../../utils/constants/colors.dart';
-import '../../../utils/constants/text_string.dart';
-import '../../../utils/helpers/helper_functions.dart';
+import 'package:nine_aki_bro/core/helpers/helper_functions.dart';
+import '../../../core/constants/colors.dart';
+import '../../../core/constants/text_string.dart';
 
 class TFormDivider extends StatelessWidget {
   const TFormDivider({
@@ -18,9 +17,9 @@ class TFormDivider extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Flexible(
+        const Flexible(
           child: Divider(
-            color: dark ? TColors.darkGrey : TColors.grey,
+            color: TColors.darkGrey,
             thickness: 0.5,
             indent: 60,
             endIndent: 5,
@@ -28,11 +27,13 @@ class TFormDivider extends StatelessWidget {
         ),
         Text(
           TTexts.orSignInWith,
-          style: Theme.of(context).textTheme.labelMedium,
+          style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                color: dark ? Colors.white : TColors.primary,
+              ),
         ),
-        Flexible(
+        const Flexible(
           child: Divider(
-            color: dark ? TColors.darkGrey : TColors.grey,
+            color: TColors.darkGrey,
             thickness: 0.5,
             indent: 5,
             endIndent: 60,
