@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:nine_aki_bro/core/helpers/show_msg.dart';
-import 'package:nine_aki_bro/views/auth/logic/authentication_cubit.dart';
+import 'package:nine_aki_bro/views/auth/logic/cubit/authentication_cubit.dart';
 import 'package:nine_aki_bro/views/auth/ui/password_configuration/reset_password.dart';
 import '../../../../core/constants/sizes.dart';
 import '../../../../core/constants/text_string.dart';
+import 'package:email_validator/email_validator.dart';
 
 class ForgetPassword extends StatefulWidget {
   const ForgetPassword({super.key});
@@ -23,8 +24,15 @@ class _ForgetPasswordState extends State<ForgetPassword> {
     return BlocConsumer<AuthenticationCubit, AuthenticationState>(
       listener: (context, state) {
         if (state is PasswordResetSuccess) {
-          Navigator.pop(context);
-          showMsg(context, 'Email was sent');
+          emailController.clear();
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const ResetPassword(),
+            ),
+          );
+        } else if (state is PasswordResetError) {
+          showMsg(context, 'There was some error');
         }
       },
       builder: (context, state) {
@@ -58,6 +66,16 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                         /// Text field
                         TextFormField(
                           controller: emailController,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter your email';
+                            }
+                            if (!EmailValidator.validate(value)) {
+                              return 'Please enter a valid email';
+                            }
+                            return null;
+                          },
+                          keyboardType: TextInputType.emailAddress,
                           decoration: const InputDecoration(
                             labelText: TTexts.email,
                             prefixIcon: Icon(Iconsax.direct_right),
@@ -74,7 +92,6 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                               if (formKey.currentState!.validate()) {
                                 cubit.resetPassword(
                                     email: emailController.text);
-
                               }
                             },
                             child: const Text(TTexts.submit),
@@ -88,6 +105,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
       },
     );
   }
+
   @override
   void dispose() {
     emailController.dispose();

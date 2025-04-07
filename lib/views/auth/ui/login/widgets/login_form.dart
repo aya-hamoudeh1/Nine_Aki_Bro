@@ -1,10 +1,11 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:nine_aki_bro/core/constants/colors.dart';
 import 'package:nine_aki_bro/core/helpers/helper_functions.dart';
 import 'package:nine_aki_bro/core/helpers/show_msg.dart';
-import 'package:nine_aki_bro/views/auth/logic/authentication_cubit.dart';
+import 'package:nine_aki_bro/views/auth/logic/cubit/authentication_cubit.dart';
 import '../../../../../core/constants/sizes.dart';
 import '../../../../../core/constants/text_string.dart';
 import '../../../../nav_bar/ui/navigation_menu.dart';
@@ -59,8 +60,15 @@ class _TLoginFormState extends State<TLoginForm> {
                           prefixIcon: Icon(Iconsax.direct_right),
                           labelText: TTexts.email,
                         ),
-                        validator: (value) =>
-                            value!.isEmpty ? 'Please enter your email' : null,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your email';
+                          }
+                          if (!EmailValidator.validate(value)) {
+                            return 'Please enter a valid email';
+                          }
+                          return null;
+                        },
                         keyboardType: TextInputType.emailAddress,
                       ),
                       const SizedBox(height: TSizes.spaceBtwInputField),

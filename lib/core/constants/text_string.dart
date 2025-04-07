@@ -22,13 +22,14 @@ class TTexts {
   static const String homeAppbarSubTitle = "Nine_Aki_Bro";
 
   // -- Authentication Form Text
-  static const String firstName = "First Name";
-  static const String lastName = "Last Name";
+  static const String name = "Name";
   static const String email = "E-Mail";
   static const String password = "Password";
   static const String newPassword = "New Password";
   static const String age = "Age";
+  static const String skinColor = "Skin Color";
   static const String phoneNo = "Phone Number";
+  static const String address = "Address";
   static const String rememberMe = "Remember Me";
   static const String forgetPassword = "Forget Password";
   static const String sighIn = "Sign In";
@@ -48,7 +49,7 @@ class TTexts {
   // -- Authentication Heading Text
   static const String loginTitle = "Welcome back,";
   static const String loginSubTitle = "Discover Limitless Choice and Unmatched Convenience.";
-  static const String signUpTitle = "Let's create your account";
+  static const String signUpTitle = "Let's get started with your fashion profile";
   static const String forgetPasswordTitle = "Forget Password";
   static const String forgetPasswordSubTitle = "Don't worry sometimes people can forget too , enter your email and we will send you a password reset link.";
   static const String changeYourPasswordTitle = "Password Reset Email Sent";

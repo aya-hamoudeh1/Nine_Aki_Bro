@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nine_aki_bro/core/helpers/bloc_observer.dart';
-import 'package:nine_aki_bro/views/auth/logic/authentication_cubit.dart';
+import 'package:nine_aki_bro/views/auth/logic/cubit/authentication_cubit.dart';
 import 'package:nine_aki_bro/views/splash/splash_screen.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'core/theme/theme.dart';

@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:nine_aki_bro/views/auth/logic/models/user_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 part 'authentication_state.dart';
@@ -16,6 +17,7 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
     emit(LoginLoading());
     try {
       await client.auth.signInWithPassword(password: password, email: email);
+      await getUserData();
       emit(LoginSuccess());
     } on AuthException catch (e) {
       log(e.toString());
@@ -27,14 +29,26 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
 
   /// Sign Up
   Future<void> signUp({
-    required String firstName,
-    required String lastName,
+    required String name,
     required String email,
     required String password,
+    required String phoneNumber,
+    required String address,
+    required String ageGroup,
+    required Color? skinTone,
   }) async {
     emit(SignUpLoading());
     try {
       await client.auth.signUp(password: password, email: email);
+      await addUserData(
+        name: name,
+        email: email,
+        phoneNumber: phoneNumber,
+        address: address,
+        ageGroup: ageGroup,
+        skinTone: skinTone?.value.toRadixString(16).padLeft(8, '0') ?? '',
+      );
+      await getUserData();
       emit(SignUpSuccess());
     } on AuthException catch (e) {
       log(e.toString());
@@ -75,6 +89,15 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
       idToken: idToken,
       accessToken: accessToken,
     );
+    await addUserData(
+      name: googleUser!.displayName!,
+      email: googleUser!.email,
+      phoneNumber: '',
+      address: '',
+      ageGroup: '',
+      skinTone: '',
+    );
+    await getUserData();
     emit(GoogleSignInSuccess());
     return response;
   }
@@ -100,6 +123,63 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
     } catch (e) {
       log(e.toString());
       emit(PasswordResetError());
+    }
+  }
+
+  ///  Add User data
+  Future<void> addUserData({
+    required String name,
+    required String email,
+    required String phoneNumber,
+    required String address,
+    required String ageGroup,
+    required String skinTone,
+  }) async {
+    emit(UserDataAddedLoading());
+    try {
+      if (client.auth.currentUser != null) {
+        await client.from('users').upsert({
+          'user_id': client.auth.currentUser!.id,
+          'name': name,
+          'email': email,
+          'phone': phoneNumber,
+          'address': address,
+          'age_group': ageGroup,
+          'skin_tone': skinTone,
+        });
+        emit(UserDataAddedSuccess());
+      } else {
+        emit(UserDataAddedError());
+        log('User not authenticated');
+      }
+    } catch (e) {
+      log('Error adding user data: $e');
+      emit(UserDataAddedError());
+    }
+  }
+
+  /// Get User Data
+  UserDataModel? userDataModel;
+  Future<void> getUserData() async {
+    emit(GetUserDataLoading());
+    try {
+      final data = await client
+          .from('users')
+          .select()
+          .eq('user_id', client.auth.currentUser!.id);
+      userDataModel = UserDataModel(
+        userId: data[0]['user_id'],
+        name: data[0]['name'],
+        email: data[0]['email'],
+        phoneNumber: data[0]['phone'],
+        address: data[0]['address'],
+        ageGroup: data[0]['age_group'],
+        skinTone: data[0]['skin_tone'],
+      );
+      emit(GetUserDataSuccess());
+    } catch (e) {
+      log(e.toString());
+      emit(GetUserDataError());
     }
   }
 }

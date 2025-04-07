@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/constants/colors.dart';
 import '../../../core/constants/sizes.dart';
 import '../../../core/helpers/show_msg.dart';
-import '../../../views/auth/logic/authentication_cubit.dart';
+import '../../../views/auth/logic/cubit/authentication_cubit.dart';
 import '../../../views/nav_bar/ui/navigation_menu.dart';
 
 class TSocialButtons extends StatelessWidget {
