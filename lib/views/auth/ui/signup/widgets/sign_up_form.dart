@@ -7,7 +7,6 @@ import 'package:nine_aki_bro/views/auth/ui/signup/widgets/age_group_dropdown.dar
 import 'package:nine_aki_bro/views/auth/ui/signup/widgets/skin_tone_selector.dart';
 import 'package:nine_aki_bro/views/auth/ui/signup/widgets/term_and_conditions_box.dart';
 import 'package:nine_aki_bro/views/nav_bar/ui/navigation_menu.dart';
-
 import '../../../../../core/constants/sizes.dart';
 import '../../../../../core/constants/text_string.dart';
 import '../../../../../core/helpers/show_msg.dart';
@@ -54,8 +53,8 @@ class _TSignUpFormState extends State<TSignUpForm> {
         AuthenticationCubit cubit = context.read<AuthenticationCubit>();
         return Form(
           key: _formKey,
-          child: state is LoginLoading
-              ? const CircularProgressIndicator()
+          child: state is SignUpLoading
+              ? const Center(child: CircularProgressIndicator())
               : Column(
                   children: [
                     /// Name
@@ -91,8 +90,7 @@ class _TSignUpFormState extends State<TSignUpForm> {
                     /// Password
                     TextFormField(
                       controller: _passwordController,
-                      obscureText: true,
-                      //expand : false,
+                      obscureText: isPasswordHidden,
                       decoration: InputDecoration(
                         labelText: TTexts.password,
                         prefixIcon: const Icon(Iconsax.password_check),
@@ -198,6 +196,8 @@ class _TSignUpFormState extends State<TSignUpForm> {
     _nameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
+    _phoneController.dispose();
+    _addressController.dispose();
     super.dispose();
   }
 }

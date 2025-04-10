@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:nine_aki_bro/views/auth/logic/models/user_model.dart';
@@ -46,7 +45,7 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
         phoneNumber: phoneNumber,
         address: address,
         ageGroup: ageGroup,
-        skinTone: skinTone?.value.toRadixString(16).padLeft(8, '0') ?? '',
+        skinTone: skinTone!.value.toRadixString(16).padLeft(8, '0'),
       );
       await getUserData();
       emit(SignUpSuccess());
@@ -138,6 +137,7 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
     emit(UserDataAddedLoading());
     try {
       if (client.auth.currentUser != null) {
+        log('User data to add: $name, $email, $phoneNumber, $address, $ageGroup, $skinTone');
         await client.from('users').upsert({
           'user_id': client.auth.currentUser!.id,
           'name': name,
@@ -163,10 +163,14 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
   Future<void> getUserData() async {
     emit(GetUserDataLoading());
     try {
-      final data = await client
+      final List<Map<String, dynamic>> data = await client
           .from('users')
           .select()
           .eq('user_id', client.auth.currentUser!.id);
+      if (data.isEmpty) {
+        emit(GetUserDataError());
+        return;
+      }
       userDataModel = UserDataModel(
         userId: data[0]['user_id'],
         name: data[0]['name'],

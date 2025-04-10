@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nine_aki_bro/core/constants/sensitive_data.dart';
 import 'package:nine_aki_bro/core/helpers/bloc_observer.dart';
 import 'package:nine_aki_bro/views/auth/logic/cubit/authentication_cubit.dart';
 import 'package:nine_aki_bro/views/splash/splash_screen.dart';
@@ -11,9 +12,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Supabase.initialize(
-    url: 'https://vbwovpydyygqyosbrtih.supabase.co',
-    anonKey:
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZid292cHlkeXlncXlvc2JydGloIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDM2MzI1MDQsImV4cCI6MjA1OTIwODUwNH0.46XUtPSkVdsDeyWTw8Qn0Fff85BNoQ3uDQe84MPGkjQ',
+    url: 'https://roukbxhlisygcczaneiw.supabase.co',
+    anonKey: anonKey,
   );
   Bloc.observer = MyObserver();
   runApp(const NineAkiBro());
