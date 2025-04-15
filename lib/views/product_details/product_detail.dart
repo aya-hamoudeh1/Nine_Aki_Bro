@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:nine_aki_bro/core/models/product_model.dart';
 import 'package:nine_aki_bro/views/product_details/widgets/bottom_add_to_cart_widget.dart';
 import 'package:nine_aki_bro/views/product_details/widgets/product_attributes.dart';
 import 'package:nine_aki_bro/views/product_details/widgets/product_detail_image_slider.dart';
@@ -9,10 +10,11 @@ import 'package:readmore/readmore.dart';
 
 import '../../common/widgets/texts/section_heading.dart';
 import '../../core/constants/sizes.dart';
-import '../product_reviews/product_reviews.dart';
+import '../product_reviews/ui/product_reviews.dart';
 
 class ProductDetailScreen extends StatelessWidget {
-  const ProductDetailScreen({super.key});
+  const ProductDetailScreen({super.key, required this.productModel});
+  final ProductModel productModel;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +36,7 @@ class ProductDetailScreen extends StatelessWidget {
               child: Column(
                 children: [
                   /// Rating & Share
-                  const TRatingAndShare(),
+                  TRatingAndShare(productModel: productModel),
 
                   /// Price, Title, Stock, Brand
                   const TProductMetaData(),
@@ -84,8 +86,8 @@ class ProductDetailScreen extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) =>
-                                  const ProductReviewsScreen(),
+                              builder: (context) => ProductReviewsScreen(
+                                  productModel: productModel),
                             ),
                           );
                         },

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:readmore/readmore.dart';
 
-import '../../../common/widgets/custom_shapes/containers/rounded_container.dart';
-import '../../../common/widgets/products/rating/rating_indicator.dart';
-import '../../../core/constants/colors.dart';
-import '../../../core/constants/sizes.dart';
-import '../../../core/helpers/helper_functions.dart';
+import '../../../../common/widgets/custom_shapes/containers/rounded_container.dart';
+import '../../../../common/widgets/products/rating/rating_indicator.dart';
+import '../../../../core/constants/colors.dart';
+import '../../../../core/constants/sizes.dart';
+import '../../../../core/helpers/helper_functions.dart';
 
 class UserReviewCard extends StatelessWidget {
   const UserReviewCard({super.key});

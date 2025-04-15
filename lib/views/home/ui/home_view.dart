@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nine_aki_bro/core/helpers/helper_functions.dart';
+import 'package:nine_aki_bro/core/helpers/home_cubit/home_cubit.dart';
+import 'package:nine_aki_bro/core/models/product_model.dart';
 import 'package:nine_aki_bro/views/home/ui/widgets/home_appbar.dart';
 import 'package:nine_aki_bro/views/home/ui/widgets/home_categories.dart';
 import 'package:nine_aki_bro/views/home/ui/widgets/promo_slider.dart';
@@ -95,9 +98,23 @@ class HomeView extends StatelessWidget {
                   const SizedBox(height: TSizes.spaceBtwItems),
 
                   /// Popular Products
-                  TGridLayout(
-                    itemCount: 2,
-                    itemBuilder: (_, index) => const TProductCardVertical(),
+                  BlocProvider(
+                    create: (context) => HomeCubit()..getProducts(),
+                    child: BlocConsumer<HomeCubit, HomeState>(
+                        listener: (context, state) {},
+                        builder: (context, state) {
+                          List<ProductModel> products =
+                              context.read<HomeCubit>().products;
+                          return state is GetDataLoading
+                              ? const Center(child: CircularProgressIndicator())
+                              : TGridLayout(
+                                  itemCount: products.length,
+                                  itemBuilder: (_, index) =>
+                                      TProductCardVertical(
+                                    productModel: products[index],
+                                  ),
+                                );
+                        }),
                   ),
                 ],
               ),

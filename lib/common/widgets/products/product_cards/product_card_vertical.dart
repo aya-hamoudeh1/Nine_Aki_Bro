@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:nine_aki_bro/core/models/product_model.dart';
 import '../../../../core/constants/colors.dart';
 import '../../../../core/constants/sizes.dart';
 import '../../../../core/helpers/helper_functions.dart';
@@ -13,8 +14,9 @@ import '../../texts/t_brand_title_text_with_verified_icon.dart';
 import '../../texts/t_product_price_text.dart';
 
 class TProductCardVertical extends StatelessWidget {
-  const TProductCardVertical({super.key});
+  const TProductCardVertical({super.key, required this.productModel});
 
+  final ProductModel productModel;
   @override
   Widget build(BuildContext context) {
     final dark = THelperFunction.isDarkMode(context);
@@ -25,7 +27,8 @@ class TProductCardVertical extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const ProductDetailScreen(),
+            builder: (context) =>
+                ProductDetailScreen(productModel: productModel),
           ),
         );
       },
@@ -47,9 +50,11 @@ class TProductCardVertical extends StatelessWidget {
               child: Stack(
                 children: [
                   /// Thumbnail Image
-                  const TRoundedImage(
-                    imageUrl: "assets/images/shoes.png",
+                  TRoundedImage(
+                    imageUrl:
+                        productModel.imageUrl ?? "assets/images/shoes.png",
                     applyImageRadius: true,
+                    isNetworkImage: true,
                   ),
 
                   /// Sale Tag
@@ -61,7 +66,7 @@ class TProductCardVertical extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(
                           horizontal: TSizes.sm, vertical: TSizes.xs),
                       child: Text(
-                        '25%',
+                        '${productModel.sale} %',
                         style: Theme.of(context)
                             .textTheme
                             .labelLarge!
@@ -85,17 +90,17 @@ class TProductCardVertical extends StatelessWidget {
             const SizedBox(height: TSizes.spaceBtwItems / 2),
 
             /// -- Details
-            const Padding(
-              padding: EdgeInsets.only(left: TSizes.sm),
+            Padding(
+              padding: const EdgeInsets.only(left: TSizes.sm),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   TProductTitleText(
-                    title: "Black Nike Air Shoes",
+                    title: productModel.productName ?? "Product Name",
                     smallSize: true,
                   ),
-                  SizedBox(height: TSizes.spaceBtwItems / 2),
-                  TBrandTitleWithVerifiedIcon(title: 'Nine Aki Bro'),
+                  const SizedBox(height: TSizes.spaceBtwItems / 2),
+                  const TBrandTitleWithVerifiedIcon(title: 'Nine Aki Bro'),
                 ],
               ),
             ),
@@ -107,9 +112,9 @@ class TProductCardVertical extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 /// Price
-                const Padding(
-                  padding: EdgeInsets.only(left: TSizes.sm),
-                  child: TProductPriceText(price: '35.5'),
+                Padding(
+                  padding: const EdgeInsets.only(left: TSizes.sm),
+                  child: TProductPriceText(price: '${productModel.price}'),
                 ),
 
                 /// Add to Cart Button

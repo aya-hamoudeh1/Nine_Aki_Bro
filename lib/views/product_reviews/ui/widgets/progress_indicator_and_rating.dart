@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/constants/colors.dart';
-import '../../../core/device/device_utility.dart';
+import '../../../../core/constants/colors.dart';
+import '../../../../core/device/device_utility.dart';
+
 
 
 class TRatingProgressIndicator extends StatelessWidget {

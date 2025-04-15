@@ -12,7 +12,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Supabase.initialize(
-    url: 'https://roukbxhlisygcczaneiw.supabase.co',
+    url: supabaseUrl,
     anonKey: anonKey,
   );
   Bloc.observer = MyObserver();

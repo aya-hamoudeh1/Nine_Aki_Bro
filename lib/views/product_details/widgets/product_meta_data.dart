@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../../../../common/widgets/custom_shapes/containers/rounded_container.dart';
 import '../../../common/widgets/images/t_circular_image.dart';
 import '../../../common/widgets/texts/product_title_text.dart';
@@ -8,14 +7,13 @@ import '../../../common/widgets/texts/t_product_price_text.dart';
 import '../../../core/constants/colors.dart';
 import '../../../core/constants/enums.dart';
 import '../../../core/constants/sizes.dart';
-import '../../../core/helpers/helper_functions.dart';
 
 class TProductMetaData extends StatelessWidget {
   const TProductMetaData({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final darkMode = THelperFunction.isDarkMode(context);
+    //final darkMode = THelperFunction.isDarkMode(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -69,15 +67,15 @@ class TProductMetaData extends StatelessWidget {
         const SizedBox(height: TSizes.spaceBtwItems / 1.5),
 
         /// Brand
-        Row(
+        const Row(
           children: [
             TCircularImage(
               image: "assets/logos/logo.png",
               width: 32,
               height: 32,
-              overlayColor: darkMode ? TColors.white : TColors.black,
+              //overlayColor: darkMode ? TColors.white : TColors.black,
             ),
-            const TBrandTitleWithVerifiedIcon(
+            TBrandTitleWithVerifiedIcon(
               title: "Nine",
               brandTextSizes: TextSizes.medium,
             ),

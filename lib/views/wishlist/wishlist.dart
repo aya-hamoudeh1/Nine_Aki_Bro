@@ -33,17 +33,17 @@ class FavoriteScreen extends StatelessWidget {
         ],
       ),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(TSizes.defaultSpace),
-          child: Column(
-            children: [
-              TGridLayout(
-                itemCount: 6,
-                itemBuilder: (_, index) => const TProductCardVertical(),
-              ),
-            ],
-          ),
-        ),
+        // child: Padding(
+        //   padding: const EdgeInsets.all(TSizes.defaultSpace),
+        //   child: Column(
+        //     children: [
+        //       TGridLayout(
+        //         itemCount: 6,
+        //         itemBuilder: (_, index) => const TProductCardVertical(),
+        //       ),
+        //     ],
+        //   ),
+        // ),
       ),
     );
   }
