@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:nine_aki_bro/views/product_reviews/logic/cubit/product_rate_cubit.dart';
-import '../../../core/constants/sizes.dart';
-import '../../../core/models/product_model.dart';
+import 'package:nine_aki_bro/common/widgets/products/rating/rating_indicator.dart';
+import '../../../../core/constants/sizes.dart';
+import '../../../../core/models/product_model.dart';
+import '../../logic/cubit/product_details_cubit.dart';
+import '../product_detail.dart';
 
 class TRatingAndShare extends StatelessWidget {
   const TRatingAndShare({
@@ -16,14 +18,25 @@ class TRatingAndShare extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) =>
-          ProductRateCubit()..getRates(productId: productModel.productId!),
-      child: BlocConsumer<ProductRateCubit, ProductRateState>(
-          listener: (context, state) {},
-          builder: (context, state) {
-            ProductRateCubit cubit = context.read<ProductRateCubit>();
-            return state is GetRateLoading
-                ? const Center(child: CircularProgressIndicator())
-                : Row(
+          ProductDetailsCubit()..getRates(productId: productModel.productId!),
+      child: BlocConsumer<ProductDetailsCubit, ProductDetailsState>(
+          listener: (context, state) {
+        if (state is AddOrUpdateRateSuccess) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) =>
+                  ProductDetailScreen(productModel: productModel),
+            ),
+          );
+        }
+      }, builder: (context, state) {
+        ProductDetailsCubit cubit = context.read<ProductDetailsCubit>();
+        return state is GetRateLoading || state is AddOrUpdateRateLoading
+            ? const Center(child: CircularProgressIndicator())
+            : Column(
+                children: [
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       /// Rating
@@ -58,8 +71,23 @@ class TRatingAndShare extends StatelessWidget {
                         ),
                       ),
                     ],
-                  );
-          }),
+                  ),
+                  TRatingBarSelector(
+                    initialRating: cubit.userRate.toDouble(),
+                    onRatingUpdate: (rating) {
+                      cubit.addOrUpdateUserRate(
+                        productId: productModel.productId!,
+                        data: {
+                          "rate": rating.toInt(),
+                          "for_user": cubit.userId,
+                          "for_product": productModel.productId!,
+                        },
+                      );
+                    },
+                  ),
+                ],
+              );
+      }),
     );
   }
 }

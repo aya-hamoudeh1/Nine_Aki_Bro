@@ -4,7 +4,7 @@ import 'package:nine_aki_bro/core/models/product_model.dart';
 import '../../../../core/constants/colors.dart';
 import '../../../../core/constants/sizes.dart';
 import '../../../../core/helpers/helper_functions.dart';
-import '../../../../views/product_details/product_detail.dart';
+import '../../../../views/product_details/ui/product_detail.dart';
 import '../../../styles/shadows.dart';
 import '../../custom_shapes/containers/rounded_container.dart';
 import '../../icons/t_circular_icon.dart';

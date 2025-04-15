@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import '../../../../../common/widgets/custom_shapes/containers/rounded_container.dart';
-import '../../../common/widgets/images/t_circular_image.dart';
-import '../../../common/widgets/texts/product_title_text.dart';
-import '../../../common/widgets/texts/t_brand_title_text_with_verified_icon.dart';
-import '../../../common/widgets/texts/t_product_price_text.dart';
-import '../../../core/constants/colors.dart';
-import '../../../core/constants/enums.dart';
-import '../../../core/constants/sizes.dart';
+import '../../../../common/widgets/images/t_circular_image.dart';
+import '../../../../common/widgets/texts/product_title_text.dart';
+import '../../../../common/widgets/texts/t_brand_title_text_with_verified_icon.dart';
+import '../../../../common/widgets/texts/t_product_price_text.dart';
+import '../../../../core/constants/colors.dart';
+import '../../../../core/constants/enums.dart';
+import '../../../../core/constants/sizes.dart';
+
 
 class TProductMetaData extends StatelessWidget {
   const TProductMetaData({super.key});

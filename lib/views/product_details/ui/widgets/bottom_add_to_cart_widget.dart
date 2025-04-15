@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
-import '../../../common/widgets/icons/t_circular_icon.dart';
-import '../../../core/constants/colors.dart';
-import '../../../core/constants/sizes.dart';
-import '../../../core/helpers/helper_functions.dart';
+import '../../../../common/widgets/icons/t_circular_icon.dart';
+import '../../../../core/constants/colors.dart';
+import '../../../../core/constants/sizes.dart';
+import '../../../../core/helpers/helper_functions.dart';
+
 
 class TBottomAddToCart extends StatelessWidget {
   const TBottomAddToCart({super.key});
