@@ -86,17 +86,25 @@ class _ProductReviewsScreenState extends State<ProductReviewsScreen> {
                                   return const Center(
                                       child: CircularProgressIndicator());
                                 } else if (snapshot.hasData) {
-                                  return ListView.builder(
+                                  return ListView.separated(
+                                    separatorBuilder: (context, index) =>
+                                        const Divider(
+                                      color: TColors.darkGrey,
+                                      thickness: 0.5,
+                                      indent: 60,
+                                      endIndent: 60,
+                                    ),
                                     shrinkWrap: true,
                                     physics:
                                         const NeverScrollableScrollPhysics(),
-                                    itemCount: cubit.rates.length,
+                                    itemCount: data?.length ?? 0,
                                     itemBuilder: (context, index) {
                                       final commentData = data![index];
                                       return UserReviewCard(
                                         userName: commentData['user_name'] ??
                                             'Anonymous',
                                         comment: commentData['comment'] ?? '',
+                                        storeReply: commentData['reply'],
                                       );
                                     },
                                   );
@@ -145,16 +153,16 @@ class _ProductReviewsScreenState extends State<ProductReviewsScreen> {
                   const SizedBox(width: 8),
                   IconButton(
                     onPressed: () async {
+                      final authCubit = context.read<AuthenticationCubit>();
+                      await authCubit.getUserData();
+                      final userName =
+                          authCubit.userDataModel?.name ?? "User Name";
                       // send review
                       await cubit.addComment(data: {
                         "comment": _commentController.text,
                         "for_user": cubit.userId,
                         "for_product": widget.productModel.productId,
-                        "user_name": context
-                                .read<AuthenticationCubit>()
-                                .userDataModel
-                                ?.name ??
-                            "User Name"
+                        "user_name": userName,
                       });
                       _commentController.clear();
                     },

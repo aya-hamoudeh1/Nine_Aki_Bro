@@ -55,7 +55,7 @@ class TRatingAndShare extends StatelessWidget {
                                   text: '${cubit.averageRate}',
                                   style: Theme.of(context).textTheme.bodyLarge,
                                 ),
-                                const TextSpan(text: '(199)'),
+                                //const TextSpan(text: '(199)'),
                               ],
                             ),
                           ),

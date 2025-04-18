@@ -3,10 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nine_aki_bro/core/helpers/helper_functions.dart';
 import 'package:nine_aki_bro/core/helpers/home_cubit/home_cubit.dart';
 import 'package:nine_aki_bro/core/models/product_model.dart';
+import 'package:nine_aki_bro/views/home/ui/search_view.dart';
 import 'package:nine_aki_bro/views/home/ui/widgets/home_appbar.dart';
 import 'package:nine_aki_bro/views/home/ui/widgets/home_categories.dart';
 import 'package:nine_aki_bro/views/home/ui/widgets/promo_slider.dart';
-
 import '../../../common/widgets/custom_shapes/containers/primary_header_container.dart';
 import '../../../common/widgets/custom_shapes/containers/search_container.dart';
 import '../../../common/widgets/layouts/grid_layout.dart';
@@ -17,7 +17,9 @@ import '../../../core/constants/sizes.dart';
 import '../../all_products/all_products.dart';
 
 class HomeView extends StatelessWidget {
-  const HomeView({super.key});
+  const HomeView({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -28,24 +30,33 @@ class HomeView extends StatelessWidget {
         child: Column(
           children: [
             /// Header
-            const TPrimaryHeaderContainer(
+            TPrimaryHeaderContainer(
               child: Column(
                 children: [
-                  SizedBox(height: TSizes.spaceBtwItems),
+                  const SizedBox(height: TSizes.spaceBtwItems),
 
                   /// Appbar
-                  THomeAppBar(),
-                  SizedBox(height: TSizes.spaceBtwSections),
+                  const THomeAppBar(),
+                  const SizedBox(height: TSizes.spaceBtwSections),
 
                   /// Searchbar
                   TSearchContainer(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const SearchView(),
+                        ),
+                      );
+                    },
                     text: 'Search in Store',
                     showBorder: false,
+                    enableTextField: false,
                   ),
-                  SizedBox(height: TSizes.spaceBtwSections),
+                  const SizedBox(height: TSizes.spaceBtwSections),
 
                   /// Categories
-                  Padding(
+                  const Padding(
                     padding: EdgeInsets.only(left: TSizes.defaultSpace),
                     child: Column(
                       children: [
@@ -62,7 +73,7 @@ class HomeView extends StatelessWidget {
                       ],
                     ),
                   ),
-                  SizedBox(height: TSizes.spaceBtwSections),
+                  const SizedBox(height: TSizes.spaceBtwSections),
                 ],
               ),
             ),
@@ -98,23 +109,20 @@ class HomeView extends StatelessWidget {
                   const SizedBox(height: TSizes.spaceBtwItems),
 
                   /// Popular Products
-                  BlocProvider(
-                    create: (context) => HomeCubit()..getProducts(),
-                    child: BlocConsumer<HomeCubit, HomeState>(
-                        listener: (context, state) {},
-                        builder: (context, state) {
-                          List<ProductModel> products =
-                              context.read<HomeCubit>().products;
-                          return state is GetDataLoading
-                              ? const Center(child: CircularProgressIndicator())
-                              : TGridLayout(
-                                  itemCount: products.length,
-                                  itemBuilder: (_, index) =>
-                                      TProductCardVertical(
-                                    productModel: products[index],
-                                  ),
-                                );
-                        }),
+                  BlocConsumer<HomeCubit, HomeState>(
+                    listener: (context, state) {},
+                    builder: (context, state) {
+                      List<ProductModel> products =
+                          context.read<HomeCubit>().products;
+                      return state is GetDataLoading
+                          ? const Center(child: CircularProgressIndicator())
+                          : TGridLayout(
+                              itemCount: products.length,
+                              itemBuilder: (_, index) => TProductCardVertical(
+                                productModel: products[index],
+                              ),
+                            );
+                    },
                   ),
                 ],
               ),

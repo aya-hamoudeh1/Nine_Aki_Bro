@@ -1,11 +1,11 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nine_aki_bro/views/home/logic/PromoSlider/promo_slider_cubit.dart';
 import '../../../../../common/widgets/custom_shapes/containers/circular_container.dart';
 import '../../../../../common/widgets/images/t_rounded_image.dart';
 import '../../../../core/constants/colors.dart';
 import '../../../../core/constants/sizes.dart';
+import '../../logic/PromoSlider_cubit/promo_slider_cubit.dart';
 
 class TPromoSlider extends StatelessWidget {
   const TPromoSlider({

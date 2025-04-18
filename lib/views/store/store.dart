@@ -21,18 +21,17 @@ class StoreScreen extends StatelessWidget {
       length: 5,
       child: Scaffold(
         //backgroundColor: TColors.primary,
-        /// Appbar
-        appBar: TAppBar(
-          title: Text(
-            'Store',
-            style: Theme.of(context).textTheme.headlineMedium,
-          ),
-          actions: [
-            TCartCounterIcon(
-              onPressed: () {},
-            ),
-          ],
-        ),
+        // appBar: TAppBar(
+        //   title: Text(
+        //     'Store',
+        //     style: Theme.of(context).textTheme.headlineMedium,
+        //   ),
+        //   actions: [
+        //     TCartCounterIcon(
+        //       onPressed: () {},
+        //     ),
+        //   ],
+        // ),
         body: NestedScrollView(
           /// Header
           headerSliverBuilder: (_, innerBoxIsScrolled) {
@@ -51,9 +50,23 @@ class StoreScreen extends StatelessWidget {
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     children: [
+                      /// Appbar
+                      TAppBar(
+                        title: Text(
+                          'Store',
+                          style: Theme.of(context).textTheme.headlineMedium,
+                        ),
+                        actions: [
+                          TCartCounterIcon(
+                            onPressed: () {},
+                          ),
+                        ],
+                      ),
+
                       /// Search bar
                       const SizedBox(height: TSizes.spaceBtwItems),
                       const TSearchContainer(
+                        enableTextField: false,
                         text: 'Search in Store',
                         showBorder: true,
                         showBackground: false,

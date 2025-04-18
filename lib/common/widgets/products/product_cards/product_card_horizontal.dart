@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:nine_aki_bro/core/models/product_model.dart';
 import '../../../../core/constants/colors.dart';
 import '../../../../core/constants/sizes.dart';
 import '../../../../core/helpers/helper_functions.dart';
@@ -11,7 +12,8 @@ import '../../texts/t_brand_title_text_with_verified_icon.dart';
 import '../../texts/t_product_price_text.dart';
 
 class TProductCardHorizontal extends StatelessWidget {
-  const TProductCardHorizontal({super.key});
+  const TProductCardHorizontal({super.key, required this.productModel});
+  final ProductModel productModel;
 
   @override
   Widget build(BuildContext context) {
@@ -92,9 +94,7 @@ class TProductCardHorizontal extends StatelessWidget {
                       TBrandTitleWithVerifiedIcon(title: 'Nike'),
                     ],
                   ),
-
                   const Spacer(),
-
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [

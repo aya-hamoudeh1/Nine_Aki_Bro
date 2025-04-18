@@ -5,6 +5,7 @@ import 'package:nine_aki_bro/core/helpers/bloc_observer.dart';
 import 'package:nine_aki_bro/views/auth/logic/cubit/authentication_cubit.dart';
 import 'package:nine_aki_bro/views/splash/splash_screen.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'core/helpers/home_cubit/home_cubit.dart';
 import 'core/theme/theme.dart';
 
 void main() async {
@@ -24,8 +25,11 @@ class NineAkiBro extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => AuthenticationCubit(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => AuthenticationCubit()),
+        BlocProvider(create: (_) => HomeCubit()..getCategories()..getProducts()),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Nine Aki Bro',
