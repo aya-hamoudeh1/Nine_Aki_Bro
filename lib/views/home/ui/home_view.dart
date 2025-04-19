@@ -14,6 +14,7 @@ import '../../../common/widgets/products/product_cards/product_card_vertical.dar
 import '../../../common/widgets/texts/section_heading.dart';
 import '../../../core/constants/colors.dart';
 import '../../../core/constants/sizes.dart';
+import '../../../core/models/category_model.dart';
 import '../../all_products/all_products.dart';
 
 class HomeView extends StatelessWidget {
@@ -26,110 +27,110 @@ class HomeView extends StatelessWidget {
     final dark = THelperFunction.isDarkMode(context);
     return Scaffold(
       backgroundColor: dark ? TColors.dark : TColors.light,
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            /// Header
-            TPrimaryHeaderContainer(
+      body: BlocConsumer<HomeCubit, HomeState>(
+          listener: (context, state) {},
+          builder: (context, state) {
+            List<ProductModel> products = context.read<HomeCubit>().products;
+            List<CategoryModel> categories =
+                context.read<HomeCubit>().categories;
+            return SingleChildScrollView(
               child: Column(
                 children: [
-                  const SizedBox(height: TSizes.spaceBtwItems),
-
-                  /// Appbar
-                  const THomeAppBar(),
-                  const SizedBox(height: TSizes.spaceBtwSections),
-
-                  /// Searchbar
-                  TSearchContainer(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const SearchView(),
-                        ),
-                      );
-                    },
-                    text: 'Search in Store',
-                    showBorder: false,
-                    enableTextField: false,
-                  ),
-                  const SizedBox(height: TSizes.spaceBtwSections),
-
-                  /// Categories
-                  const Padding(
-                    padding: EdgeInsets.only(left: TSizes.defaultSpace),
+                  /// Header
+                  TPrimaryHeaderContainer(
                     child: Column(
                       children: [
-                        /// Heading
-                        TSectionHeading(
-                          title: 'Popular Categories',
-                          showActionButton: false,
-                          textColor: TColors.white,
+                        const SizedBox(height: TSizes.spaceBtwItems),
+
+                        /// Appbar
+                        const THomeAppBar(),
+                        const SizedBox(height: TSizes.spaceBtwSections),
+
+                        /// Searchbar
+                        TSearchContainer(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const SearchView(),
+                              ),
+                            );
+                          },
+                          text: 'Search in Store',
+                          showBorder: false,
+                          enableTextField: false,
                         ),
-                        SizedBox(height: TSizes.spaceBtwItems),
+                        const SizedBox(height: TSizes.spaceBtwSections),
 
                         /// Categories
-                        THomeCategories()
+                        Padding(
+                          padding:
+                              const EdgeInsets.only(left: TSizes.defaultSpace),
+                          child: Column(
+                            children: [
+                              /// Heading
+                              const TSectionHeading(
+                                title: 'Popular Categories',
+                                showActionButton: false,
+                                textColor: TColors.white,
+                              ),
+                              const SizedBox(height: TSizes.spaceBtwItems),
+
+                              /// Categories
+                              THomeCategories(categories: categories)
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: TSizes.spaceBtwSections),
                       ],
                     ),
                   ),
-                  const SizedBox(height: TSizes.spaceBtwSections),
-                ],
-              ),
-            ),
 
-            /// Body
-            Padding(
-              padding: const EdgeInsets.all(TSizes.defaultSpace),
-              child: Column(
-                children: [
-                  /// Promo Slider
-                  const TPromoSlider(
-                    banners: [
-                      "assets/images/bag.png",
-                      "assets/images/t-shirt.png",
-                      "assets/images/jeans.png",
-                      "assets/images/belt.png",
-                      'assets/images/jacket.png',
-                      'assets/images/shoes.png',
-                    ],
-                  ),
-                  const SizedBox(height: TSizes.spaceBtwSections),
+                  /// Body
+                  Padding(
+                    padding: const EdgeInsets.all(TSizes.defaultSpace),
+                    child: Column(
+                      children: [
+                        /// Promo Slider
+                        const TPromoSlider(
+                          banners: [
+                            "assets/images/bag.png",
+                            "assets/images/t-shirt.png",
+                            "assets/images/jeans.png",
+                            "assets/images/belt.png",
+                            'assets/images/jacket.png',
+                            'assets/images/shoes.png',
+                          ],
+                        ),
+                        const SizedBox(height: TSizes.spaceBtwSections),
 
-                  /// Heading
-                  TSectionHeading(
-                    title: 'Popular Product',
-                    onPressed: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const AllProducts(),
-                      ),
+                        /// Heading
+                        TSectionHeading(
+                          title: 'Popular Product',
+                          onPressed: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const AllProducts(),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: TSizes.spaceBtwItems),
+
+                        /// Popular Products
+
+                        TGridLayout(
+                          itemCount: products.length,
+                          itemBuilder: (_, index) => TProductCardVertical(
+                            productModel: products[index],
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  const SizedBox(height: TSizes.spaceBtwItems),
-
-                  /// Popular Products
-                  BlocConsumer<HomeCubit, HomeState>(
-                    listener: (context, state) {},
-                    builder: (context, state) {
-                      List<ProductModel> products =
-                          context.read<HomeCubit>().products;
-                      return state is GetDataLoading
-                          ? const Center(child: CircularProgressIndicator())
-                          : TGridLayout(
-                              itemCount: products.length,
-                              itemBuilder: (_, index) => TProductCardVertical(
-                                productModel: products[index],
-                              ),
-                            );
-                    },
-                  ),
                 ],
               ),
-            ),
-          ],
-        ),
-      ),
+            );
+          }),
     );
   }
 }

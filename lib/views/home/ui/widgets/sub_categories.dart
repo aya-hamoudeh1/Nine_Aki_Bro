@@ -21,10 +21,11 @@ class _SubCategoriesScreenState extends State<SubCategoriesScreen> {
   void initState() {
     super.initState();
     Future.microtask(() {
-      context.read<HomeCubit>().getProducts();
       context.read<HomeCubit>().getProductsByCategory(widget.categoryId);
     });
   }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,8 +68,7 @@ class _SubCategoriesScreenState extends State<SubCategoriesScreen> {
                                 itemCount: filteredProducts.length,
                                 scrollDirection: Axis.horizontal,
                                 separatorBuilder: (context, index) =>
-                                    const SizedBox(
-                                        width: TSizes.spaceBtwItems),
+                                    const SizedBox(width: TSizes.spaceBtwItems),
                                 itemBuilder: (context, index) =>
                                     TProductCardHorizontal(
                                   productModel: filteredProducts[index],

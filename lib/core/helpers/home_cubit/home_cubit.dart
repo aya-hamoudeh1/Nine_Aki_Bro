@@ -4,7 +4,6 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:nine_aki_bro/core/api/api_services.dart';
 import 'package:nine_aki_bro/core/models/product_model.dart';
-
 import '../../models/category_model.dart';
 
 part 'home_state.dart';
@@ -20,7 +19,8 @@ class HomeCubit extends Cubit<HomeState> {
   List<ProductModel> categoryProduct = [];
   List<CategoryModel> categories = [];
 
-  Future<void> getProducts({String? query, String? category}) async {
+  /// Get All Product
+  Future<void> getProducts() async {
     emit(GetDataLoading());
     try {
       products.clear();
@@ -30,8 +30,7 @@ class HomeCubit extends Cubit<HomeState> {
       for (var product in response.data) {
         products.add(ProductModel.fromJson(product));
       }
-      search(query);
-      getProductsByCategory(category);
+      await getCategories();
       emit(GetDataSuccess());
     } catch (e) {
       log(e.toString());
@@ -39,6 +38,7 @@ class HomeCubit extends Cubit<HomeState> {
     }
   }
 
+  /// Get Categories
   Future<void> getCategories() async {
     try {
       var response = await _apiServices.getData('category');
@@ -61,11 +61,7 @@ class HomeCubit extends Cubit<HomeState> {
           searchResults.add(product);
         }
       }
-      if (searchResults.isEmpty) {
-        emit(GetDataSuccess());
-      } else {
-        emit(GetDataSuccess());
-      }
+      emit(GetDataSuccess());
     } else {
       isSearching = false;
       searchResults.clear();
@@ -73,7 +69,7 @@ class HomeCubit extends Cubit<HomeState> {
     }
   }
 
-  /// Category
+  /// Get Product By Category
   void getProductsByCategory(String? categoryId) {
     categoryProduct.clear();
     if (categoryId != null) {
@@ -85,6 +81,9 @@ class HomeCubit extends Cubit<HomeState> {
       }
     }
     log("Filtered Products: ${categoryProduct.length}");
-    emit(GetDataSuccess());
+  }
+
+  void onCategorySelected(String categoryId) {
+    getProductsByCategory(categoryId);
   }
 }
