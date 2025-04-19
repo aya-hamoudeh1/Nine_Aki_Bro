@@ -6,7 +6,6 @@ import '../../../../core/constants/colors.dart';
 import '../../../../core/constants/sizes.dart';
 import '../../../../core/helpers/helper_functions.dart';
 
-
 class TBottomAddToCart extends StatelessWidget {
   const TBottomAddToCart({super.key});
 
@@ -30,7 +29,8 @@ class TBottomAddToCart extends StatelessWidget {
         children: [
           Row(
             children: [
-              const TCircularIcon(
+              AnimatedCircularIcon(
+                onPressed: () {},
                 icon: Iconsax.minus,
                 backgroundColor: TColors.darkerGrey,
                 width: 40,
@@ -40,7 +40,8 @@ class TBottomAddToCart extends StatelessWidget {
               const SizedBox(width: TSizes.spaceBtwItems),
               Text('2', style: Theme.of(context).textTheme.titleSmall),
               const SizedBox(width: TSizes.spaceBtwItems),
-              const TCircularIcon(
+              AnimatedCircularIcon(
+                onPressed: () {},
                 icon: Iconsax.add,
                 backgroundColor: TColors.black,
                 width: 40,

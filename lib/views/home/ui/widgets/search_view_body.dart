@@ -6,6 +6,7 @@ import '../../../../common/widgets/layouts/grid_layout.dart';
 import '../../../../common/widgets/products/product_cards/product_card_vertical.dart';
 import '../../../../core/constants/sizes.dart';
 import '../../../../core/helpers/home_cubit/home_cubit.dart';
+import '../../../../core/models/product_model.dart';
 
 class SearchViewBody extends StatefulWidget {
   const SearchViewBody({super.key});
@@ -26,7 +27,6 @@ class _SearchViewBodyState extends State<SearchViewBody> {
   @override
   Widget build(BuildContext context) {
     final homeCubit = context.read<HomeCubit>();
-
     return Scaffold(
       body: ListView(
         children: [
@@ -52,6 +52,9 @@ class _SearchViewBodyState extends State<SearchViewBody> {
             padding: const EdgeInsets.all(TSizes.defaultSpace),
             child: BlocBuilder<HomeCubit, HomeState>(
               builder: (context, state) {
+                HomeCubit homeCubit = context.read<HomeCubit>();
+                List<ProductModel> products =
+                    context.read<HomeCubit>().products;
                 final results = homeCubit.searchResults;
                 final isSearching = homeCubit.isSearching;
 
@@ -66,6 +69,11 @@ class _SearchViewBodyState extends State<SearchViewBody> {
                 return TGridLayout(
                   itemCount: results.length,
                   itemBuilder: (_, index) => TProductCardVertical(
+                    isFavorite:
+                        homeCubit.checkIsFavorite(products[index].productId!),
+                    onPressed: () {
+                      homeCubit.addToFavorite(products[index].productId!);
+                    },
                     productModel: results[index],
                   ),
                 );

@@ -14,9 +14,16 @@ import '../../texts/t_brand_title_text_with_verified_icon.dart';
 import '../../texts/t_product_price_text.dart';
 
 class TProductCardVertical extends StatelessWidget {
-  const TProductCardVertical({super.key, required this.productModel});
+  const TProductCardVertical(
+      {super.key,
+      required this.productModel,
+      this.onPressed,
+      required this.isFavorite});
 
+  final Function()? onPressed;
+  final bool isFavorite;
   final ProductModel productModel;
+
   @override
   Widget build(BuildContext context) {
     final dark = THelperFunction.isDarkMode(context);
@@ -64,7 +71,9 @@ class TProductCardVertical extends StatelessWidget {
                       radius: TSizes.sm,
                       backgroundColor: TColors.secondary.withOpacity(0.8),
                       padding: const EdgeInsets.symmetric(
-                          horizontal: TSizes.sm, vertical: TSizes.xs),
+                        horizontal: TSizes.sm,
+                        vertical: TSizes.xs,
+                      ),
                       child: Text(
                         '${productModel.sale} %',
                         style: Theme.of(context)
@@ -76,12 +85,13 @@ class TProductCardVertical extends StatelessWidget {
                   ),
 
                   /// Favourite Icon Button
-                  const Positioned(
+                  Positioned(
                     top: 0,
                     right: 0,
-                    child: TCircularIcon(
+                    child: AnimatedCircularIcon(
                       icon: Iconsax.heart5,
-                      color: Colors.red,
+                      color: isFavorite ? Colors.red : TColors.darkGrey,
+                      onPressed: onPressed,
                     ),
                   ),
                 ],

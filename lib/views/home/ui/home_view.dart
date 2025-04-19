@@ -30,6 +30,7 @@ class HomeView extends StatelessWidget {
       body: BlocConsumer<HomeCubit, HomeState>(
           listener: (context, state) {},
           builder: (context, state) {
+            HomeCubit homeCubit = context.read<HomeCubit>();
             List<ProductModel> products = context.read<HomeCubit>().products;
             List<CategoryModel> categories =
                 context.read<HomeCubit>().categories;
@@ -121,6 +122,17 @@ class HomeView extends StatelessWidget {
                         TGridLayout(
                           itemCount: products.length,
                           itemBuilder: (_, index) => TProductCardVertical(
+                            isFavorite: homeCubit
+                                .checkIsFavorite(products[index].productId!),
+                            onPressed: () {
+                              bool isFavorite = homeCubit
+                                  .checkIsFavorite(products[index].productId!);
+                              isFavorite
+                                  ? homeCubit.removeFromFavorite(
+                                      products[index].productId!)
+                                  : homeCubit.addToFavorite(
+                                      products[index].productId!);
+                            },
                             productModel: products[index],
                           ),
                         ),

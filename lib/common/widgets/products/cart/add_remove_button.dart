@@ -16,7 +16,8 @@ class TProductQuantityWithAddRemoveButton extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        TCircularIcon(
+        AnimatedCircularIcon(
+          onPressed: () {},
           icon: Iconsax.minus,
           height: 32,
           width: 32,
@@ -31,7 +32,8 @@ class TProductQuantityWithAddRemoveButton extends StatelessWidget {
         const SizedBox(width: TSizes.spaceBtwItems),
         Text('2', style: Theme.of(context).textTheme.titleSmall),
         const SizedBox(width: TSizes.spaceBtwItems),
-        const TCircularIcon(
+        AnimatedCircularIcon(
+          onPressed: () {},
           icon: Iconsax.add,
           height: 32,
           width: 32,

@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:nine_aki_bro/views/nav_bar/ui/navigation_menu.dart';
 import '../../common/widgets/appbar/appbar.dart';
 import '../../common/widgets/icons/t_circular_icon.dart';
+import '../../common/widgets/layouts/grid_layout.dart';
+import '../../common/widgets/products/product_cards/product_card_vertical.dart';
 import '../../core/constants/sizes.dart';
+import '../../core/helpers/home_cubit/home_cubit.dart';
 
 class FavoriteScreen extends StatelessWidget {
   const FavoriteScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final homeCubit = context.read<HomeCubit>();
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
@@ -22,7 +27,7 @@ class FavoriteScreen extends StatelessWidget {
                   style: Theme.of(context).textTheme.headlineMedium,
                 ),
                 actions: [
-                  TCircularIcon(
+                  AnimatedCircularIcon(
                     icon: Iconsax.add,
                     onPressed: () {
                       Navigator.push(
@@ -35,11 +40,27 @@ class FavoriteScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              // TGridLayout(
-              //   itemCount: 6,
-              //   itemBuilder: (_, index) =>
-              //       TProductCardVertical(productModel: productModel),
-              // ),
+              BlocBuilder<HomeCubit, HomeState>(builder: (context, state) {
+                final favoriteProducts =
+                    context.read<HomeCubit>().favoriteProductList;
+                return TGridLayout(
+                  itemCount: favoriteProducts.length,
+                  itemBuilder: (_, index) => TProductCardVertical(
+                    productModel: favoriteProducts[index],
+                    isFavorite: homeCubit
+                        .checkIsFavorite(favoriteProducts[index].productId!),
+                    onPressed: () {
+                      bool isFav = homeCubit
+                          .checkIsFavorite(favoriteProducts[index].productId!);
+                      isFav
+                          ? homeCubit.removeFromFavorite(
+                              favoriteProducts[index].productId!)
+                          : homeCubit.addToFavorite(
+                              favoriteProducts[index].productId!);
+                    },
+                  ),
+                );
+              }),
             ],
           ),
         ),

@@ -9,7 +9,6 @@ import '../../../../core/constants/colors.dart';
 import '../../../../core/constants/sizes.dart';
 import '../../../../core/helpers/helper_functions.dart';
 
-
 class TProductImageSlider extends StatelessWidget {
   const TProductImageSlider({
     super.key,
@@ -61,10 +60,11 @@ class TProductImageSlider extends StatelessWidget {
             ),
 
             /// App Icons
-            const TAppBar(
+            TAppBar(
               showBackArrow: true,
               actions: [
-                TCircularIcon(icon: Iconsax.heart5, color: Colors.red),
+                AnimatedCircularIcon(
+                    onPressed: () {}, icon: Iconsax.heart5, color: Colors.red),
               ],
             ),
           ],

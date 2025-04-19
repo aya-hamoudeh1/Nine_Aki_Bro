@@ -64,10 +64,11 @@ class TProductCardHorizontal extends StatelessWidget {
                 ),
 
                 /// Favourite Icon Button
-                const Positioned(
+                Positioned(
                   top: 0,
                   right: 0,
-                  child: TCircularIcon(
+                  child: AnimatedCircularIcon(
+                    onPressed: () {},
                     icon: Iconsax.heart5,
                     color: Colors.red,
                   ),
