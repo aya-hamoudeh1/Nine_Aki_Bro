@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../../../common/widgets/products/sortable/sortable_products.dart';
-import '../../common/widgets/appbar/appbar.dart';
+import '../../core/widgets/products/sortable/sortable_products.dart';
 import '../../core/constants/sizes.dart';
+import '../../core/widgets/appbar/appbar.dart';
 
 class AllProducts extends StatelessWidget {
   const AllProducts({super.key});

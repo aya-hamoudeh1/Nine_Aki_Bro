@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nine_aki_bro/core/helpers/home_cubit/home_cubit.dart';
-
-import '../../../../common/widgets/appbar/appbar.dart';
-import '../../../../common/widgets/images/t_rounded_image.dart';
-import '../../../../common/widgets/products/product_cards/product_card_horizontal.dart';
-import '../../../../common/widgets/texts/section_heading.dart';
+import '../../../../core/widgets/appbar/appbar.dart';
+import '../../../../core/widgets/images/t_rounded_image.dart';
+import '../../../../core/widgets/products/product_cards/product_card_horizontal.dart';
+import '../../../../core/widgets/texts/section_heading.dart';
 import '../../../../core/constants/sizes.dart';
 
 class SubCategoriesScreen extends StatefulWidget {

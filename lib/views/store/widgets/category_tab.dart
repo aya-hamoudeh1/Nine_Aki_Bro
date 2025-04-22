@@ -1,9 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
-import '../../../common/widgets/brands/brand_show_case.dart';
-import '../../../common/widgets/layouts/grid_layout.dart';
-import '../../../common/widgets/products/product_cards/product_card_vertical.dart';
-import '../../../common/widgets/texts/section_heading.dart';
+import '../../../core/widgets/brands/brand_show_case.dart';
+import '../../../core/widgets/texts/section_heading.dart';
 import '../../../core/constants/sizes.dart';
 
 class TCategoryTab extends StatelessWidget {

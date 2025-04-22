@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:nine_aki_bro/views/checkout/widgets/billing_address_section.dart';
 import 'package:nine_aki_bro/views/checkout/widgets/billing_amount_section.dart';
 import 'package:nine_aki_bro/views/checkout/widgets/billing_payment_section.dart';
-
-import '../../../../common/widgets/appbar/appbar.dart';
-import '../../../../common/widgets/products/cart/coupon_widget.dart';
-import '../../common/widgets/custom_shapes/containers/rounded_container.dart';
-import '../../common/widgets/success_screen/success_screen.dart';
+import '../../core/widgets/appbar/appbar.dart';
+import '../../core/widgets/products/cart/coupon_widget.dart';
+import '../../core/widgets/custom_shapes/containers/rounded_container.dart';
+import '../../core/widgets/success_screen/success_screen.dart';
 import '../../core/constants/colors.dart';
 import '../../core/constants/sizes.dart';
 import '../../core/helpers/helper_functions.dart';

@@ -8,7 +8,7 @@ import 'package:nine_aki_bro/views/product_details/ui/widgets/product_meta_data.
 import 'package:nine_aki_bro/views/product_details/ui/widgets/rating_share_widget.dart';
 import 'package:readmore/readmore.dart';
 
-import '../../../common/widgets/texts/section_heading.dart';
+import '../../../core/widgets/texts/section_heading.dart';
 import '../../../core/constants/sizes.dart';
 import '../../product_reviews/ui/product_reviews.dart';
 

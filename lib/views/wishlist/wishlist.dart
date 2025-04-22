@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:nine_aki_bro/views/nav_bar/ui/navigation_menu.dart';
-import '../../common/widgets/appbar/appbar.dart';
-import '../../common/widgets/icons/t_circular_icon.dart';
-import '../../common/widgets/layouts/grid_layout.dart';
-import '../../common/widgets/products/product_cards/product_card_vertical.dart';
+import '../../core/widgets/appbar/appbar.dart';
+import '../../core/widgets/icons/t_circular_icon.dart';
+import '../../core/widgets/layouts/grid_layout.dart';
+import '../../core/widgets/products/product_cards/product_card_vertical.dart';
 import '../../core/constants/sizes.dart';
 import '../../core/helpers/home_cubit/home_cubit.dart';
 

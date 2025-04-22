@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../common/widgets/image_text_widgets/vertical_image_text.dart';
+import '../../../../core/widgets/image_text_widget/vertical_image_text.dart';
 import '../../../../core/helpers/home_cubit/home_cubit.dart';
 import '../../../../core/models/category_model.dart';
 import 'sub_categories.dart';

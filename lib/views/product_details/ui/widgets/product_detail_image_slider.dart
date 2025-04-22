@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-
-import '../../../../../common/widgets/appbar/appbar.dart';
-import '../../../../../common/widgets/custom_shapes/curved_edges/curved_edge_widget.dart';
-import '../../../../../common/widgets/icons/t_circular_icon.dart';
-import '../../../../../common/widgets/images/t_rounded_image.dart';
+import '../../../../core/widgets/appbar/appbar.dart';
+import '../../../../core/widgets/custom_shapes/curved_edges/curved_edge_widget.dart';
+import '../../../../core/widgets/icons/t_circular_icon.dart';
+import '../../../../core/widgets/images/t_rounded_image.dart';
 import '../../../../core/constants/colors.dart';
 import '../../../../core/constants/sizes.dart';
 import '../../../../core/helpers/helper_functions.dart';

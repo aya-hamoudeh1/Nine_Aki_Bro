@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 
-import '../../../../../common/widgets/products/cart/add_remove_button.dart';
-import '../../../../../common/widgets/products/cart/cart_item.dart';
-import '../../../../../common/widgets/texts/t_product_price_text.dart';
+import '../../../core/widgets/products/cart/add_remove_button.dart';
+import '../../../core/widgets/products/cart/cart_item.dart';
+import '../../../core/widgets/texts/t_product_price_text.dart';
 import '../../../core/constants/sizes.dart';
 
 class TCartItems extends StatelessWidget {

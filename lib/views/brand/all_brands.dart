@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-
-import '../../common/widgets/appbar/appbar.dart';
-import '../../common/widgets/brands/t_brand_card.dart';
-import '../../common/widgets/layouts/grid_layout.dart';
-import '../../common/widgets/texts/section_heading.dart';
+import '../../core/widgets/appbar/appbar.dart';
+import '../../core/widgets/brands/t_brand_card.dart';
+import '../../core/widgets/layouts/grid_layout.dart';
+import '../../core/widgets/texts/section_heading.dart';
 import '../../core/constants/sizes.dart';
 import 'brands_products.dart';
 
