@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-import '../../common/widgets/appbar/appbar.dart';
-import '../../common/widgets/custom_shapes/containers/primary_header_container.dart';
-import '../../common/widgets/list_tiles/settings_menu_tile.dart';
-import '../../common/widgets/list_tiles/user_profile_tile.dart';
-import '../../common/widgets/texts/section_heading.dart';
+import '../../core/widgets/appbar/appbar.dart';
+import '../../core/widgets/custom_shapes/containers/primary_header_container.dart';
+import '../../core/widgets/list_tiles/settings_menu_tile.dart';
+import '../../core/widgets/list_tiles/user_profile_tile.dart';
+import '../../core/widgets/texts/section_heading.dart';
 import '../../core/constants/colors.dart';
 import '../../core/constants/sizes.dart';
 import '../address/address.dart';

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../common/widgets/appbar/appbar.dart';
-import '../../../../common/widgets/custom_shapes/containers/search_container.dart';
-import '../../../../common/widgets/layouts/grid_layout.dart';
-import '../../../../common/widgets/products/product_cards/product_card_vertical.dart';
+import '../../../../core/widgets/appbar/appbar.dart';
+import '../../../../core/widgets/custom_shapes/containers/search_container.dart';
+import '../../../../core/widgets/layouts/grid_layout.dart';
+import '../../../../core/widgets/products/product_cards/product_card_vertical.dart';
 import '../../../../core/constants/sizes.dart';
 import '../../../../core/helpers/home_cubit/home_cubit.dart';
 import '../../../../core/models/product_model.dart';

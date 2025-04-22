@@ -1,11 +1,10 @@
 
 import 'package:flutter/material.dart';
-
-import '../../../../common/widgets/chips/choice_chip.dart';
-import '../../../../common/widgets/custom_shapes/containers/rounded_container.dart';
-import '../../../../common/widgets/texts/product_title_text.dart';
-import '../../../../common/widgets/texts/section_heading.dart';
-import '../../../../common/widgets/texts/t_product_price_text.dart';
+import '../../../../core/widgets/chips/choice_chip.dart';
+import '../../../../core/widgets/custom_shapes/containers/rounded_container.dart';
+import '../../../../core/widgets/texts/product_title_text.dart';
+import '../../../../core/widgets/texts/section_heading.dart';
+import '../../../../core/widgets/texts/t_product_price_text.dart';
 import '../../../../core/constants/colors.dart';
 import '../../../../core/constants/sizes.dart';
 import '../../../../core/helpers/helper_functions.dart';

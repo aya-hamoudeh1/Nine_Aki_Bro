@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:nine_aki_bro/views/auth/ui/login/widgets/login_form.dart';
 import 'package:nine_aki_bro/views/auth/ui/login/widgets/login_header.dart';
-import '../../../../common/widgets/login_signup/form_divider.dart';
-import '../../../../common/widgets/login_signup/social_button.dart';
+import '../../../../core/widgets/login_signup/form_divider.dart';
+import '../../../../core/widgets/login_signup/social_button.dart';
 import '../../../../core/constants/sizes.dart';
 import '../../../../core/constants/text_string.dart';
 

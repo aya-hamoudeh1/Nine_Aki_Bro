@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-
-import '../../common/widgets/appbar/appbar.dart';
-import '../../common/widgets/brands/t_brand_card.dart';
-import '../../common/widgets/products/sortable/sortable_products.dart';
+import '../../core/widgets/appbar/appbar.dart';
+import '../../core/widgets/brands/t_brand_card.dart';
+import '../../core/widgets/products/sortable/sortable_products.dart';
 import '../../core/constants/sizes.dart';
 
 class BrandProducts extends StatelessWidget {

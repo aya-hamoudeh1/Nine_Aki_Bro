@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:nine_aki_bro/views/nav_bar/ui/navigation_menu.dart';
-import '../../../../common/widgets/success_screen/success_screen.dart';
+import '../../../../core/widgets/success_screen/success_screen.dart';
 import '../../../../core/constants/sizes.dart';
 import '../../../../core/constants/text_string.dart';
 import '../../../../core/helpers/helper_functions.dart';

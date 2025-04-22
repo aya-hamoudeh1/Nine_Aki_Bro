@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../common/widgets/texts/section_heading.dart';
+import '../../../core/widgets/texts/section_heading.dart';
 import '../../../core/constants/colors.dart';
 import '../../../core/constants/sizes.dart';
 

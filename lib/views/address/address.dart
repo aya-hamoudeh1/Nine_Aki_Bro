@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:nine_aki_bro/views/address/widgets/single_address.dart';
-
-import '../../common/widgets/appbar/appbar.dart';
 import '../../core/constants/colors.dart';
 import '../../core/constants/sizes.dart';
+import '../../core/widgets/appbar/appbar.dart';
 import 'add_new_address.dart';
 
 class UserAddressScreen extends StatelessWidget {

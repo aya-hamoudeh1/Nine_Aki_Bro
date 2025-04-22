@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:nine_aki_bro/common/widgets/products/rating/rating_indicator.dart';
+import 'package:nine_aki_bro/core/widgets/products/rating/rating_indicator.dart';
 import '../../../../core/constants/sizes.dart';
 import '../../../../core/models/product_model.dart';
 import '../../logic/cubit/product_details_cubit.dart';

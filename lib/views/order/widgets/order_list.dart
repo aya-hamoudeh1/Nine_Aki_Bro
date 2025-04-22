@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
-import '../../../common/widgets/custom_shapes/containers/rounded_container.dart';
+import '../../../core/widgets/custom_shapes/containers/rounded_container.dart';
 import '../../../core/constants/colors.dart';
 import '../../../core/constants/sizes.dart';
 import '../../../core/helpers/helper_functions.dart';
