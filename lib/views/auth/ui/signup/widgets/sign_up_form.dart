@@ -1,7 +1,7 @@
-import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:nine_aki_bro/core/helpers/validators.dart';
 import 'package:nine_aki_bro/views/auth/logic/cubit/authentication_cubit.dart';
 import 'package:nine_aki_bro/views/auth/ui/signup/widgets/age_group_dropdown.dart';
 import 'package:nine_aki_bro/views/auth/ui/signup/widgets/skin_tone_selector.dart';
@@ -53,122 +53,117 @@ class _TSignUpFormState extends State<TSignUpForm> {
         AuthenticationCubit cubit = context.read<AuthenticationCubit>();
         return Form(
           key: _formKey,
-          child: state is SignUpLoading
-              ? const Center(child: CircularProgressIndicator())
-              : Column(
-                  children: [
-                    /// Name
-                    TextFormField(
-                      controller: _nameController,
-                      decoration: const InputDecoration(
-                        labelText: TTexts.name,
-                        prefixIcon: Icon(Iconsax.user),
-                      ),
-                    ),
-                    const SizedBox(height: TSizes.spaceBtwInputField),
+          child: Column(
+            children: [
+              /// Name
+              TextFormField(
+                controller: _nameController,
+                decoration: const InputDecoration(
+                  labelText: TTexts.name,
+                  prefixIcon: Icon(Iconsax.user),
+                ),
+                validator: TValidator.validateName,
+              ),
+              const SizedBox(height: TSizes.spaceBtwInputField),
 
-                    /// Email
-                    TextFormField(
-                      controller: _emailController,
-                      decoration: const InputDecoration(
-                        labelText: TTexts.email,
-                        prefixIcon: Icon(Iconsax.direct),
-                      ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter your email';
-                        }
-                        if (!EmailValidator.validate(value)) {
-                          return 'Please enter a valid email';
-                        }
-                        return null;
-                      },
-                      keyboardType: TextInputType.emailAddress,
-                    ),
-                    const SizedBox(height: TSizes.spaceBtwInputField),
+              /// Email
+              TextFormField(
+                controller: _emailController,
+                decoration: const InputDecoration(
+                  labelText: TTexts.email,
+                  prefixIcon: Icon(Iconsax.direct),
+                ),
+                validator: TValidator.validateEmail,
+                keyboardType: TextInputType.emailAddress,
+              ),
+              const SizedBox(height: TSizes.spaceBtwInputField),
 
-                    /// Password
-                    TextFormField(
-                      controller: _passwordController,
-                      obscureText: isPasswordHidden,
-                      decoration: InputDecoration(
-                        labelText: TTexts.password,
-                        prefixIcon: const Icon(Iconsax.password_check),
-                        suffixIcon: IconButton(
-                          onPressed: () {
-                            setState(() {
-                              isPasswordHidden = !isPasswordHidden;
-                            });
-                          },
-                          icon: Icon(isPasswordHidden
-                              ? Iconsax.eye_slash
-                              : Iconsax.eye),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: TSizes.spaceBtwInputField),
+              /// Password
+              TextFormField(
+                controller: _passwordController,
+                obscureText: isPasswordHidden,
+                decoration: InputDecoration(
+                  labelText: TTexts.password,
+                  prefixIcon: const Icon(Iconsax.password_check),
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      setState(() {
+                        isPasswordHidden = !isPasswordHidden;
+                      });
+                    },
+                    icon: Icon(
+                        isPasswordHidden ? Iconsax.eye_slash : Iconsax.eye),
+                  ),
+                ),
+                validator: TValidator.validatePassword,
+              ),
+              const SizedBox(height: TSizes.spaceBtwInputField),
 
-                    /// Phone Number
-                    TextFormField(
-                      controller: _phoneController,
-                      //expand : false,
-                      decoration: const InputDecoration(
-                        labelText: TTexts.phoneNo,
-                        prefixIcon: Icon(Iconsax.call),
-                      ),
-                    ),
-                    const SizedBox(height: TSizes.spaceBtwInputField),
+              /// Phone Number
+              TextFormField(
+                controller: _phoneController,
+                //expand : false,
+                decoration: const InputDecoration(
+                  labelText: TTexts.phoneNo,
+                  prefixIcon: Icon(Iconsax.call),
+                ),
+                validator: TValidator.validatePhoneNumber,
+              ),
+              const SizedBox(height: TSizes.spaceBtwInputField),
 
-                    /// Address
-                    TextFormField(
-                      controller: _addressController,
-                      //expand : false,
-                      decoration: const InputDecoration(
-                        labelText: TTexts.address,
-                        prefixIcon: Icon(Iconsax.location),
-                      ),
-                    ),
-                    const SizedBox(height: TSizes.spaceBtwSections),
+              /// Address
+              TextFormField(
+                controller: _addressController,
+                //expand : false,
+                decoration: const InputDecoration(
+                  labelText: TTexts.address,
+                  prefixIcon: Icon(Iconsax.location),
+                ),
+                validator: TValidator.validateAddress,
+              ),
+              const SizedBox(height: TSizes.spaceBtwSections),
 
-                    Text(
-                      'Age and skin tone help us suggest the best outfits for you :',
-                      style: Theme.of(context).textTheme.titleLarge,
-                    ),
-                    const SizedBox(height: TSizes.spaceBtwInputField),
+              Text(
+                'Age and skin tone help us suggest the best outfits for you :',
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
+              const SizedBox(height: TSizes.spaceBtwInputField),
 
-                    /// Age
-                    AgeGroupDropdown(
-                      selectedValue: selectedAgeGroup,
-                      onChanged: (p0) {
-                        setState(() {
-                          selectedAgeGroup = p0;
-                        });
-                      },
-                    ),
-                    const SizedBox(height: TSizes.spaceBtwInputField),
+              /// Age
+              AgeGroupDropdown(
+                selectedValue: selectedAgeGroup,
+                onChanged: (p0) {
+                  setState(() {
+                    selectedAgeGroup = p0;
+                  });
+                },
+              ),
+              const SizedBox(height: TSizes.spaceBtwInputField),
 
-                    /// Skin Color
-                    SkinToneSelector(
-                      selectedColor: selectedSkinTone,
-                      onColorSelected: (color) {
-                        setState(() {
-                          selectedSkinTone = color;
-                        });
-                      },
-                    ),
-                    const SizedBox(height: TSizes.spaceBtwSections),
+              /// Skin Color
+              SkinToneSelector(
+                selectedColor: selectedSkinTone,
+                onColorSelected: (color) {
+                  setState(() {
+                    selectedSkinTone = color;
+                  });
+                },
+              ),
+              const SizedBox(height: TSizes.spaceBtwSections),
 
-                    /// Terms&Conditions checkbox
-                    const TTermAndConditionsBox(),
-                    const SizedBox(
-                      height: TSizes.spaceBtwSections,
-                    ),
+              /// Terms&Conditions checkbox
+              const TTermAndConditionsBox(),
+              const SizedBox(
+                height: TSizes.spaceBtwSections,
+              ),
 
-                    /// Sign Up Button
-                    SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton(
-                        onPressed: () {
+              /// Sign Up Button
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: state is LoginLoading
+                      ? null
+                      : () {
                           if (_formKey.currentState!.validate()) {
                             cubit.signUp(
                               name: _nameController.text,
@@ -181,11 +176,13 @@ class _TSignUpFormState extends State<TSignUpForm> {
                             );
                           }
                         },
-                        child: const Text(TTexts.createAccount),
-                      ),
-                    ),
-                  ],
+                  child: state is SignUpLoading
+                      ? const Center(child: CircularProgressIndicator())
+                      : const Text(TTexts.createAccount),
                 ),
+              ),
+            ],
+          ),
         );
       },
     );

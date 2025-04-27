@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
+import '../../../core/constants/colors.dart';
+import '../../../core/helpers/helper_functions.dart';
 import '../../../core/widgets/brands/brand_show_case.dart';
 import '../../../core/widgets/texts/section_heading.dart';
 import '../../../core/constants/sizes.dart';
@@ -9,6 +11,7 @@ class TCategoryTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final dark = THelperFunction.isDarkMode(context);
     return ListView(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
@@ -39,6 +42,7 @@ class TCategoryTab extends StatelessWidget {
               /// Products You May Like
               TSectionHeading(
                 title: 'You might like',
+                textColor: dark ? TColors.white : TColors.primary,
                 showActionButton: true,
                 onPressed: () {},
               ),

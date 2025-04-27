@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../core/widgets/appbar/appbar.dart';
+import '../../../../core/widgets/icons/t_notification_counter_icon.dart';
 import '../../../../core/widgets/products/cart/cart_menu_icon.dart';
 import '../../../../core/constants/colors.dart';
 import '../../../../core/constants/text_string.dart';
@@ -28,9 +29,18 @@ class THomeAppBar extends StatelessWidget {
         ],
       ),
       actions: [
-        TCartCounterIcon(
-          onPressed: () {},
-          iconColor: TColors.white,
+        Row(
+          children: [
+            TNotificationCounterIcon(
+              onPressed: () {},
+              counter: 0,
+              iconColor: TColors.white,
+            ),
+            TCartCounterIcon(
+              onPressed: () {},
+              iconColor: TColors.white,
+            ),
+          ],
         ),
       ],
     );

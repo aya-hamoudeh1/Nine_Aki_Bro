@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:nine_aki_bro/core/helpers/helper_functions.dart';
 import '../../core/widgets/appbar/appbar.dart';
 import '../../core/widgets/custom_shapes/containers/primary_header_container.dart';
 import '../../core/widgets/list_tiles/settings_menu_tile.dart';
@@ -16,7 +17,9 @@ class SettingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final dark = THelperFunction.isDarkMode(context);
     return Scaffold(
+      backgroundColor: dark ? TColors.dark : TColors.light,
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -57,8 +60,9 @@ class SettingScreen extends StatelessWidget {
               child: Column(
                 children: [
                   /// Account Setting
-                  const TSectionHeading(
+                  TSectionHeading(
                     title: "Account Settings",
+                    textColor: dark ? TColors.white : TColors.primary,
                     showActionButton: false,
                   ),
                   const SizedBox(height: TSizes.spaceBtwItems),
@@ -122,8 +126,11 @@ class SettingScreen extends StatelessWidget {
 
                   /// App Settings
                   const SizedBox(height: TSizes.spaceBtwSections),
-                  const TSectionHeading(
-                      title: "App Settings", showActionButton: false),
+                  TSectionHeading(
+                    title: "App Settings",
+                    textColor: dark ? TColors.white : TColors.primary,
+                    showActionButton: false,
+                  ),
                   const SizedBox(height: TSizes.spaceBtwItems),
                   const TSettingMenuTile(
                       icon: Iconsax.document_upload,

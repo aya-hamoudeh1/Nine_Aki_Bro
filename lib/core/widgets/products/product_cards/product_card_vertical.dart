@@ -58,12 +58,12 @@ class TProductCardVertical extends StatelessWidget {
                 children: [
                   /// Thumbnail Image
                   TRoundedImage(
+                    width: double.infinity,
                     imageUrl:
                         productModel.imageUrl ?? "assets/images/shoes.png",
                     applyImageRadius: true,
                     isNetworkImage: true,
                   ),
-
                   /// Sale Tag
                   Positioned(
                     top: 12,

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:nine_aki_bro/core/constants/colors.dart';
 import 'package:nine_aki_bro/views/nav_bar/ui/navigation_menu.dart';
+import '../../core/helpers/helper_functions.dart';
 import '../../core/widgets/appbar/appbar.dart';
 import '../../core/widgets/icons/t_circular_icon.dart';
 import '../../core/widgets/layouts/grid_layout.dart';
@@ -14,8 +16,10 @@ class FavoriteScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final dark = THelperFunction.isDarkMode(context);
     final homeCubit = context.read<HomeCubit>();
     return Scaffold(
+      backgroundColor: dark ? TColors.dark : TColors.light,
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(TSizes.defaultSpace),
@@ -24,7 +28,9 @@ class FavoriteScreen extends StatelessWidget {
               TAppBar(
                 title: Text(
                   'WishList',
-                  style: Theme.of(context).textTheme.headlineMedium,
+                  style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                        color: dark ? TColors.white : TColors.primary,
+                      ),
                 ),
                 actions: [
                   AnimatedCircularIcon(

@@ -98,20 +98,21 @@ class _AnimatedCircularIconState extends State<AnimatedCircularIcon>
 
   @override
   Widget build(BuildContext context) {
-    bool dark = THelperFunction.isDarkMode(context);
+    final dark = THelperFunction.isDarkMode(context);
     return ScaleTransition(
       scale: _controller,
       child: Container(
         height: widget.height,
         width: widget.width,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(100),
-          color: widget.backgroundColor != null
-              ? widget.backgroundColor!
-              : dark
-                  ? TColors.black.withOpacity(0.9)
-                  : TColors.white.withOpacity(0.9),
-        ),
+            borderRadius: BorderRadius.circular(100),
+            color: dark ? TColors.primary : TColors.grey
+            // widget.backgroundColor != null
+            //     ? widget.backgroundColor!
+            //     : dark
+            //         ? TColors.black.withOpacity(0.9)
+            //         : TColors.white.withOpacity(0.9),
+            ),
         child: IconButton(
           icon: Icon(widget.icon, color: widget.color, size: widget.size),
           onPressed: () {

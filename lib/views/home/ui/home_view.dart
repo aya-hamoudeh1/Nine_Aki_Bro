@@ -28,121 +28,122 @@ class HomeView extends StatelessWidget {
     return Scaffold(
       backgroundColor: dark ? TColors.dark : TColors.light,
       body: BlocConsumer<HomeCubit, HomeState>(
-          listener: (context, state) {},
-          builder: (context, state) {
-            HomeCubit homeCubit = context.read<HomeCubit>();
-            List<ProductModel> products = context.read<HomeCubit>().products;
-            List<CategoryModel> categories =
-                context.read<HomeCubit>().categories;
-            return SingleChildScrollView(
-              child: Column(
-                children: [
-                  /// Header
-                  TPrimaryHeaderContainer(
-                    child: Column(
-                      children: [
-                        const SizedBox(height: TSizes.spaceBtwItems),
+        listener: (context, state) {},
+        builder: (context, state) {
+          HomeCubit homeCubit = context.read<HomeCubit>();
+          List<ProductModel> products = context.read<HomeCubit>().products;
+          List<CategoryModel> categories = context.read<HomeCubit>().categories;
+          return SingleChildScrollView(
+            child: Column(
+              children: [
+                /// Header
+                TPrimaryHeaderContainer(
+                  child: Column(
+                    children: [
+                      const SizedBox(height: TSizes.spaceBtwItems),
 
-                        /// Appbar
-                        const THomeAppBar(),
-                        const SizedBox(height: TSizes.spaceBtwSections),
+                      /// Appbar
+                      const THomeAppBar(),
+                      const SizedBox(height: TSizes.spaceBtwSections),
 
-                        /// Searchbar
-                        TSearchContainer(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const SearchView(),
-                              ),
-                            );
-                          },
-                          text: 'Search in Store',
-                          showBorder: false,
-                          enableTextField: false,
-                        ),
-                        const SizedBox(height: TSizes.spaceBtwSections),
-
-                        /// Categories
-                        Padding(
-                          padding:
-                              const EdgeInsets.only(left: TSizes.defaultSpace),
-                          child: Column(
-                            children: [
-                              /// Heading
-                              const TSectionHeading(
-                                title: 'Popular Categories',
-                                showActionButton: false,
-                                textColor: TColors.white,
-                              ),
-                              const SizedBox(height: TSizes.spaceBtwItems),
-
-                              /// Categories
-                              THomeCategories(categories: categories)
-                            ],
-                          ),
-                        ),
-                        const SizedBox(height: TSizes.spaceBtwSections),
-                      ],
-                    ),
-                  ),
-
-                  /// Body
-                  Padding(
-                    padding: const EdgeInsets.all(TSizes.defaultSpace),
-                    child: Column(
-                      children: [
-                        /// Promo Slider
-                        const TPromoSlider(
-                          banners: [
-                            "assets/images/bag.png",
-                            "assets/images/t-shirt.png",
-                            "assets/images/jeans.png",
-                            "assets/images/belt.png",
-                            'assets/images/jacket.png',
-                            'assets/images/shoes.png',
-                          ],
-                        ),
-                        const SizedBox(height: TSizes.spaceBtwSections),
-
-                        /// Heading
-                        TSectionHeading(
-                          title: 'Popular Product',
-                          onPressed: () => Navigator.push(
+                      /// Searchbar
+                      TSearchContainer(
+                        onTap: () {
+                          Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const AllProducts(),
+                              builder: (context) => const SearchView(),
                             ),
-                          ),
-                        ),
-                        const SizedBox(height: TSizes.spaceBtwItems),
+                          );
+                        },
+                        text: 'Search in Store',
+                        showBorder: false,
+                        enableTextField: false,
+                      ),
+                      const SizedBox(height: TSizes.spaceBtwSections),
 
-                        /// Popular Products
+                      /// Categories
+                      Padding(
+                        padding:
+                            const EdgeInsets.only(left: TSizes.defaultSpace),
+                        child: Column(
+                          children: [
+                            /// Heading
+                            const TSectionHeading(
+                              title: 'Popular Categories',
+                              showActionButton: false,
+                              textColor: TColors.white,
+                            ),
+                            const SizedBox(height: TSizes.spaceBtwItems),
 
-                        TGridLayout(
-                          itemCount: products.length,
-                          itemBuilder: (_, index) => TProductCardVertical(
-                            isFavorite: homeCubit
-                                .checkIsFavorite(products[index].productId!),
-                            onPressed: () {
-                              bool isFavorite = homeCubit
-                                  .checkIsFavorite(products[index].productId!);
-                              isFavorite
-                                  ? homeCubit.removeFromFavorite(
-                                      products[index].productId!)
-                                  : homeCubit.addToFavorite(
-                                      products[index].productId!);
-                            },
-                            productModel: products[index],
-                          ),
+                            /// Categories
+                            THomeCategories(categories: categories)
+                          ],
                         ),
-                      ],
-                    ),
+                      ),
+                      const SizedBox(height: TSizes.spaceBtwSections),
+                    ],
                   ),
-                ],
-              ),
-            );
-          }),
+                ),
+
+                /// Body
+                Padding(
+                  padding: const EdgeInsets.all(TSizes.defaultSpace),
+                  child: Column(
+                    children: [
+                      /// Promo Slider
+                      const TPromoSlider(
+                        banners: [
+                          "assets/images/bag.png",
+                          "assets/images/t-shirt.png",
+                          "assets/images/jeans.png",
+                          "assets/images/belt.png",
+                          'assets/images/jacket.png',
+                          'assets/images/shoes.png',
+                        ],
+                      ),
+                      const SizedBox(height: TSizes.spaceBtwSections),
+
+                      /// Heading
+                      TSectionHeading(
+                        title: 'Popular Product',
+                        onPressed: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const AllProducts(),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: TSizes.spaceBtwItems),
+
+                      /// Popular Products
+                      state is GetDataLoading
+                          ? const Center(child: CircularProgressIndicator())
+                          : TGridLayout(
+                              itemCount: products.length,
+                              itemBuilder: (_, index) => TProductCardVertical(
+                                isFavorite: homeCubit.checkIsFavorite(
+                                    products[index].productId!),
+                                onPressed: () {
+                                  bool isFavorite = homeCubit.checkIsFavorite(
+                                      products[index].productId!);
+                                  isFavorite
+                                      ? homeCubit.removeFromFavorite(
+                                          products[index].productId!)
+                                      : homeCubit.addToFavorite(
+                                          products[index].productId!);
+                                },
+                                productModel: products[index],
+                              ),
+                            ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 }

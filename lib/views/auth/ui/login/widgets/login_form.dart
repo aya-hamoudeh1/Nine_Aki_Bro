@@ -24,13 +24,16 @@ class _TLoginFormState extends State<TLoginForm> {
   final TextEditingController passwordController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool isPasswordHidden = true;
+  bool rememberMe = false;
 
   @override
   Widget build(BuildContext context) {
     final dark = THelperFunction.isDarkMode(context);
     return BlocConsumer<AuthenticationCubit, AuthenticationState>(
       listener: (context, state) {
-        if (state is LoginSuccess ) {
+        if (state is LoginSuccess) {
+          emailController.clear();
+          passwordController.clear();
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
@@ -46,93 +49,96 @@ class _TLoginFormState extends State<TLoginForm> {
         AuthenticationCubit cubit = context.read<AuthenticationCubit>();
         return Form(
           key: _formKey,
-          child: state is LoginLoading
-              ? const CircularProgressIndicator()
-              : Padding(
-                  padding: const EdgeInsets.symmetric(
-                      vertical: TSizes.spaceBtwSections),
-                  child: Column(
-                    children: [
-                      /// Email
-                      TextFormField(
-                        controller: emailController,
-                        decoration: const InputDecoration(
-                          prefixIcon: Icon(Iconsax.direct_right),
-                          labelText: TTexts.email,
+          child: Padding(
+            padding:
+                const EdgeInsets.symmetric(vertical: TSizes.spaceBtwSections),
+            child: Column(
+              children: [
+                /// Email
+                TextFormField(
+                  controller: emailController,
+                  decoration: const InputDecoration(
+                    prefixIcon: Icon(Iconsax.direct_right),
+                    labelText: TTexts.email,
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your email';
+                    }
+                    if (!EmailValidator.validate(value)) {
+                      return 'Please enter a valid email';
+                    }
+                    return null;
+                  },
+                  keyboardType: TextInputType.emailAddress,
+                ),
+                const SizedBox(height: TSizes.spaceBtwInputField),
+
+                /// Password
+                TextFormField(
+                  controller: passwordController,
+                  obscureText: isPasswordHidden,
+                  decoration: InputDecoration(
+                    prefixIcon: const Icon(Iconsax.password_check),
+                    labelText: TTexts.password,
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          isPasswordHidden = !isPasswordHidden;
+                        });
+                      },
+                      icon: Icon(
+                          isPasswordHidden ? Iconsax.eye_slash : Iconsax.eye),
+                    ),
+                  ),
+                  validator: (value) => value!.length < 6
+                      ? 'Password must be at least 6 characters long'
+                      : null,
+                ),
+                const SizedBox(height: TSizes.spaceBtwInputField / 2),
+
+                /// Remember Me & Forget Password
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    /// Remember Me
+                    Row(
+                      children: [
+                        Checkbox(
+                          value: rememberMe,
+                          onChanged: (value) {
+                            setState(() {
+                              rememberMe = value!;
+                            });
+                          },
                         ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter your email';
-                          }
-                          if (!EmailValidator.validate(value)) {
-                            return 'Please enter a valid email';
-                          }
-                          return null;
-                        },
-                        keyboardType: TextInputType.emailAddress,
-                      ),
-                      const SizedBox(height: TSizes.spaceBtwInputField),
+                        const Text(TTexts.rememberMe),
+                      ],
+                    ),
 
-                      /// Password
-                      TextFormField(
-                        controller: passwordController,
-                        obscureText: isPasswordHidden,
-                        decoration: InputDecoration(
-                          prefixIcon: const Icon(Iconsax.password_check),
-                          labelText: TTexts.password,
-                          suffixIcon: IconButton(
-                            onPressed: () {
-                              setState(() {
-                                isPasswordHidden = !isPasswordHidden;
-                              });
-                            },
-                            icon: Icon(isPasswordHidden
-                                ? Iconsax.eye_slash
-                                : Iconsax.eye),
+                    /// Forget Password
+                    TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const ForgetPassword(),
                           ),
-                        ),
-                        validator: (value) => value!.length < 6
-                            ? 'Password must be at least 6 characters long'
-                            : null,
-                      ),
-                      const SizedBox(height: TSizes.spaceBtwInputField / 2),
+                        );
+                      },
+                      child: const Text(TTexts.forgetPassword),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: TSizes.spaceBtwSections),
 
-                      /// Remember Me & Forget Password
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          /// Remember Me
-                          Row(
-                            children: [
-                              Checkbox(
-                                value: true,
-                                onChanged: (value) {},
-                              ),
-                              const Text(TTexts.rememberMe),
-                            ],
-                          ),
-
-                          /// Forget Password
-                          TextButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const ForgetPassword(),
-                                ),
-                              );
-                            },
-                            child: const Text(TTexts.forgetPassword),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: TSizes.spaceBtwSections),
-
-                      /// Sign In Button
-                      SizedBox(
-                        width: double.infinity,
-                        child: ElevatedButton(
-                          onPressed: () {
+                /// Sign In Button
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: state is LoginLoading
+                        ? null
+                        : () {
                             if (_formKey.currentState!.validate()) {
                               cubit.login(
                                 email: emailController.text,
@@ -140,35 +146,37 @@ class _TLoginFormState extends State<TLoginForm> {
                               );
                             }
                           },
-                          child: const Text(TTexts.sighIn),
-                        ),
-                      ),
-
-                      const SizedBox(height: TSizes.spaceBtwItems),
-
-                      /// Create Account Button
-                      SizedBox(
-                        width: double.infinity,
-                        child: OutlinedButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const SignUpScreen(),
-                              ),
-                            );
-                          },
-                          child: Text(
-                            TTexts.createAccount,
-                            style: TextStyle(
-                              color: dark ? Colors.white : TColors.primary,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
+                    child: state is LoginLoading
+                        ? const Center(child: CircularProgressIndicator())
+                        : const Text(TTexts.sighIn),
                   ),
                 ),
+
+                const SizedBox(height: TSizes.spaceBtwItems),
+
+                /// Create Account Button
+                SizedBox(
+                  width: double.infinity,
+                  child: OutlinedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const SignUpScreen(),
+                        ),
+                      );
+                    },
+                    child: Text(
+                      TTexts.createAccount,
+                      style: TextStyle(
+                        color: dark ? Colors.white : TColors.primary,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
         );
       },
     );
