@@ -78,7 +78,7 @@ class SplashScreenState extends State<SplashScreen>
         children: [
           Positioned.fill(
             child: Image.asset(
-              'assets/images/test1.jpg',
+              'assets/images/splash_screen.jpg',
               fit: BoxFit.cover,
             ),
           ),

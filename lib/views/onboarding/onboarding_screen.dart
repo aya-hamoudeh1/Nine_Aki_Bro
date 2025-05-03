@@ -27,19 +27,19 @@ class OnBoardingScreen extends StatelessWidget {
                   },
                   children: const [
                     OnBoardingPage(
-                      image: 'assets/images/test1.jpg',
+                      image: 'assets/images/onboarding/onboarding1.png',
                       title: 'Welcome to Nine Aki Bro',
                       subTitle:
                           'Enjoy an innovative experience with all the features we offer. Let us help you discover a whole new world of convenience',
                     ),
                     OnBoardingPage(
-                      image: 'assets/images/test2.jpg',
+                      image: 'assets/images/onboarding/onboarding2.jpg',
                       title: 'Discover Our Unique Features',
                       subTitle:
                           'Explore tools and functions that make your life easier and faster. Everything you need is at your fingertips.',
                     ),
                     OnBoardingPage(
-                      image: 'assets/images/test1.jpg',
+                      image: 'assets/images/onboarding/onboarding3.jpg',
                       title: 'Get Started Now!',
                       subTitle:
                           'The first step starts here. Let us take you on a journey to explore everything Nine Aki Bro has to offer',

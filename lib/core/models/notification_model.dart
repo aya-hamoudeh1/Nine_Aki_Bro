@@ -15,7 +15,6 @@ class NotificationModel {
     this.createdAt,
   });
 
-  // من JSON إلى Model
   factory NotificationModel.fromJson(Map<String, dynamic> json) =>
       NotificationModel(
         id: json['notifications_id'] as String?,
@@ -28,7 +27,6 @@ class NotificationModel {
             : DateTime.parse(json['created_at'] as String),
       );
 
-  // من Model إلى JSON
   Map<String, dynamic> toJson() => {
         'notifications_id': id,
         'for_user': userId,

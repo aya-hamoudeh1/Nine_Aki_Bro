@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-
-import '../../../views/notifications/notification_view.dart';
 import '../../constants/colors.dart';
 
 class TNotificationCounterIcon extends StatelessWidget {
@@ -23,47 +21,7 @@ class TNotificationCounterIcon extends StatelessWidget {
     return Stack(
       children: [
         IconButton(
-          onPressed: () {
-            if (counter != null && counter! > 0) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const NotificationsScreen(),
-                ),
-              );
-            } else {
-              showDialog(
-                context: context,
-                builder: (context) => AlertDialog(
-                  backgroundColor: TColors.primary,
-                  title: const Text(
-                    'No Notifications',
-                    style: TextStyle(
-                      color: TColors.white,
-                    ),
-                  ),
-                  content: const Text(
-                    'You currently have no new notifications.',
-                    style: TextStyle(
-                      color: TColors.white,
-                    ),
-                  ),
-                  actions: [
-                    TextButton(
-                      onPressed: () => Navigator.pop(context),
-                      child: const Text(
-                        'OK',
-                        style: TextStyle(
-                          color: TColors.white,
-                          fontWeight: FontWeight.w900,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              );
-            }
-          },
+          onPressed: onPressed,
           icon: Icon(
             Iconsax.notification,
             color: iconColor,

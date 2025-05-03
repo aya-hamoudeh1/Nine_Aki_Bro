@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/widgets/appbar/appbar.dart';
 import '../../../../core/widgets/icons/t_notification_counter_icon.dart';
 import '../../../../core/widgets/products/cart/cart_menu_icon.dart';
 import '../../../../core/constants/colors.dart';
 import '../../../../core/constants/text_string.dart';
+import '../../../notifications/logic/cubit/notification_cubit/notification_cubit.dart';
+import '../../../notifications/notification_view.dart';
 
 class THomeAppBar extends StatelessWidget {
   const THomeAppBar({
@@ -31,11 +34,26 @@ class THomeAppBar extends StatelessWidget {
       actions: [
         Row(
           children: [
-            TNotificationCounterIcon(
-              onPressed: () {},
-              counter: 0,
-              iconColor: TColors.white,
-            ),
+            BlocBuilder<NotificationCubit,NotificationState>(
+                builder: (context, state) {
+                  final count = context.read<NotificationCubit>().unreadCount;
+                  return TNotificationCounterIcon(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => BlocProvider.value(
+                            value: BlocProvider.of<NotificationCubit>(context)
+                              ..fetchNotifications(),
+                            child: const NotificationsScreen(),
+                          ),
+                        ),
+                      );
+                    },
+                    counter: count,
+                    iconColor: TColors.white,
+                  );
+                }),
             TCartCounterIcon(
               onPressed: () {},
               iconColor: TColors.white,

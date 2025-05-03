@@ -18,10 +18,8 @@ class TUserProfileTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => AuthenticationCubit()..getUserData(),
-      child: BlocConsumer<AuthenticationCubit, AuthenticationState>(
-          listener: (context, state) {
+    return BlocConsumer<AuthenticationCubit, AuthenticationState>(
+      listener: (context, state) {
         if (state is LogoutSuccess) {
           Navigator.pushReplacement(
             context,
@@ -30,7 +28,8 @@ class TUserProfileTile extends StatelessWidget {
             ),
           );
         }
-      }, builder: (context, state) {
+      },
+      builder: (context, state) {
         UserDataModel? userDataModel =
             context.read<AuthenticationCubit>().userDataModel;
         return state is LogoutLoading || state is GetUserDataLoading
@@ -63,7 +62,7 @@ class TUserProfileTile extends StatelessWidget {
                   ),
                 ),
               );
-      }),
+      },
     );
   }
 }
