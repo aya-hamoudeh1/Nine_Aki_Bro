@@ -25,3 +25,31 @@ final class RemoveFavoriteLoading extends HomeState {}
 final class RemoveFavoriteSuccess extends HomeState {}
 
 final class RemoveFavoriteError extends HomeState {}
+
+/// Add To Cart
+class AddToCartLoading extends HomeState {}
+
+class AddToCartSuccess extends HomeState {}
+
+class AddToCartError extends HomeState {}
+
+/// Remove From Cart
+class RemoveFromCartLoading extends HomeState {}
+
+class RemoveFromCartSuccess extends HomeState {}
+
+class RemoveFromCartError extends HomeState {}
+
+/// Get Cart Item
+class GetCartItemLoading extends HomeState {}
+
+class GetCartItemSuccess extends HomeState {}
+
+class GetCartItemError extends HomeState {}
+
+/// Buy Product
+final class BuyProductLoading extends HomeState {}
+
+final class BuyProductSuccess extends HomeState {}
+
+final class BuyProductError extends HomeState {}

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../constants/colors.dart';
 import '../../../constants/sizes.dart';
 import '../../../helpers/helper_functions.dart';
+import '../../../models/product_model.dart';
 import '../../images/t_rounded_image.dart';
 import '../../texts/product_title_text.dart';
 import '../../texts/t_brand_title_text_with_verified_icon.dart';
@@ -10,15 +11,17 @@ import '../../texts/t_brand_title_text_with_verified_icon.dart';
 class TCartItem extends StatelessWidget {
   const TCartItem({
     super.key,
+    required this.product,
   });
-
+  final ProductModel product;
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         /// Image
         TRoundedImage(
-          imageUrl: "assets/images/shoes.png",
+          imageUrl: product.imageUrl ?? "assets/images/splash_screen.jpg",
+          isNetworkImage: true,
           width: 60,
           height: 60,
           padding: const EdgeInsets.all(TSizes.sm),
@@ -35,9 +38,9 @@ class TCartItem extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const TBrandTitleWithVerifiedIcon(title: 'Nine'),
-              const Flexible(
+              Flexible(
                 child: TProductTitleText(
-                  title: "Black Sports shoes",
+                  title: product.productName ?? "No Name",
                   maxLine: 1,
                 ),
               ),

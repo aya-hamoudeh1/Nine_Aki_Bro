@@ -14,6 +14,7 @@ class ProductModel {
   String? imageUrl;
   List<Favorite>? favoriteProduct;
   List<Purchase>? purchase;
+  int quantity;
 
   ProductModel({
     this.productId,
@@ -27,6 +28,7 @@ class ProductModel {
     this.imageUrl,
     this.favoriteProduct,
     this.purchase,
+    this.quantity = 1,
   });
 
   factory ProductModel.fromJson(Map<String, dynamic> json) => ProductModel(
@@ -47,19 +49,21 @@ class ProductModel {
         purchase: (json['purchase'] as List<dynamic>?)
             ?.map((e) => Purchase.fromJson(e as Map<String, dynamic>))
             .toList(),
+        quantity: json['quantity'] ?? 1,
       );
 
-  Map<String,dynamic> toJson()=> {
-    'product_id':productId,
-    'created_at':createdAt?.toIso8601String(),
-    'product_name':productName,
-    'price':price,
-    'old_price':oldPrice,
-    'sale': sale,
-    'description':description,
-    'category':categoryId,
-    'image_url':imageUrl,
-    'favorite':favoriteProduct?.map((e) => e.toJson).toList(),
-    'purchase' :purchase?.map((e) => e.toJson).toList(),
-  };
+  Map<String, dynamic> toJson() => {
+        'product_id': productId,
+        'created_at': createdAt?.toIso8601String(),
+        'product_name': productName,
+        'price': price,
+        'old_price': oldPrice,
+        'sale': sale,
+        'description': description,
+        'category': categoryId,
+        'image_url': imageUrl,
+        'favorite': favoriteProduct?.map((e) => e.toJson).toList(),
+        'purchase': purchase?.map((e) => e.toJson).toList(),
+        'quantity': quantity,
+      };
 }

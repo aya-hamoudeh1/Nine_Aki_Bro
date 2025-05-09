@@ -14,15 +14,18 @@ import '../../texts/t_brand_title_text_with_verified_icon.dart';
 import '../../texts/t_product_price_text.dart';
 
 class TProductCardVertical extends StatelessWidget {
-  const TProductCardVertical(
-      {super.key,
-      required this.productModel,
-      this.onPressed,
-      required this.isFavorite});
+  const TProductCardVertical({
+    super.key,
+    required this.productModel,
+    this.onPressed,
+    required this.isFavorite,
+    this.onAddToCart,
+  });
 
   final Function()? onPressed;
   final bool isFavorite;
   final ProductModel productModel;
+  final Function()? onAddToCart;
 
   @override
   Widget build(BuildContext context) {
@@ -64,6 +67,7 @@ class TProductCardVertical extends StatelessWidget {
                     applyImageRadius: true,
                     isNetworkImage: true,
                   ),
+
                   /// Sale Tag
                   Positioned(
                     top: 12,
@@ -128,19 +132,22 @@ class TProductCardVertical extends StatelessWidget {
                 ),
 
                 /// Add to Cart Button
-                Container(
-                  decoration: const BoxDecoration(
-                    color: TColors.primary,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(TSizes.cardRadiusMd),
-                      bottomRight: Radius.circular(TSizes.productImageRadius),
+                GestureDetector(
+                  onTap: onAddToCart,
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      color: TColors.primary,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(TSizes.cardRadiusMd),
+                        bottomRight: Radius.circular(TSizes.productImageRadius),
+                      ),
                     ),
+                    child: const SizedBox(
+                        width: TSizes.iconLg * 1.2,
+                        height: TSizes.iconLg * 1.2,
+                        child: Center(
+                            child: Icon(Iconsax.add, color: TColors.white))),
                   ),
-                  child: const SizedBox(
-                      width: TSizes.iconLg * 1.2,
-                      height: TSizes.iconLg * 1.2,
-                      child: Center(
-                          child: Icon(Iconsax.add, color: TColors.white))),
                 ),
               ],
             ),

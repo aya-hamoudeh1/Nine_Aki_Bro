@@ -21,6 +21,7 @@ class HomeCubit extends Cubit<HomeState> {
   bool isSearching = false;
   List<ProductModel> categoryProduct = [];
   List<CategoryModel> categories = [];
+  List<ProductModel> cartItems = [];
 
   /// Get All Product
   Future<void> getProducts() async {
@@ -124,7 +125,8 @@ class HomeCubit extends Cubit<HomeState> {
       await _apiServices
           .deleteData('favorite?for_user=eq.$userId&for_product=eq.$productId');
       favoriteProduct.removeWhere((key, value) => key == productId);
-      favoriteProductList.removeWhere((product) => product.productId == productId);
+      favoriteProductList
+          .removeWhere((product) => product.productId == productId);
       emit(RemoveFavoriteSuccess());
     } catch (e) {
       log(e.toString());
@@ -145,6 +147,84 @@ class HomeCubit extends Cubit<HomeState> {
           }
         }
       }
+    }
+  }
+
+  /// Add To Cart
+  Future<void> addToCart(ProductModel productModel) async {
+    emit(AddToCartLoading());
+    try {
+      ProductModel? existingProduct;
+      try {
+        existingProduct = cartItems.firstWhere(
+          (item) => item.productId == productModel.productId,
+        );
+      } catch (e) {
+        existingProduct = null;
+      }
+
+      if (existingProduct != null) {
+        await _apiServices.patchData(
+            'cart?for_user=eq.$userId&for_product=eq.${productModel.productId}',
+            {
+              'quantity': existingProduct.quantity + 1,
+            });
+        existingProduct.quantity += 1;
+      } else {
+        await _apiServices.postData('cart', {
+          'for_user': userId,
+          'for_product': productModel.productId,
+          'quantity': 1,
+        });
+      }
+      await getCartItems();
+      emit(AddToCartSuccess());
+    } catch (e) {
+      log(e.toString());
+      emit(AddToCartError());
+    }
+  }
+
+  /// Get Cart Items
+  Future<void> getCartItems() async {
+    try {
+      emit(GetCartItemLoading());
+      cartItems.clear();
+      final response = await _apiServices
+          .getData('cart?for_user=eq.$userId&select=*,products(*)');
+
+      for (var item in response.data) {
+        final productJson = item['products'];
+        final quantity = item['quantity'];
+        final product = ProductModel.fromJson(productJson);
+        product.quantity = quantity;
+        bool alreadyExists =
+            cartItems.any((p) => p.productId == product.productId);
+        if (!alreadyExists) {
+          cartItems.add(product);
+        }
+      }
+
+      emit(GetCartItemSuccess());
+    } catch (e) {
+      log(e.toString());
+      emit(GetCartItemError());
+    }
+  }
+
+  /// Buy Product
+  Future<void> buyProduct({required String productId}) async {
+    emit(BuyProductLoading());
+    try {
+      await _apiServices.postData('purchase', {
+        "for_user": userId,
+        "is_bought": true,
+        "for_product": productId,
+      });
+      emit(BuyProductSuccess());
+    } catch (e) {
+      log(e.toString());
+      emit(BuyProductError());
     }
   }
 }

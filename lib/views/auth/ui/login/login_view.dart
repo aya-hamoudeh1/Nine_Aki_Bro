@@ -19,10 +19,8 @@ class LoginScreen extends StatelessWidget {
             children: [
               /// Logo , Title & Sub-Title
               TLoginHeader(),
-
               /// Form
               TLoginForm(),
-
               /// Divider
               TFormDivider(
                 dividerText: TTexts.orSignInWith,

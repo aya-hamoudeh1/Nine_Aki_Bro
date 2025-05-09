@@ -9,7 +9,7 @@ import '../../core/widgets/success_screen/success_screen.dart';
 import '../../core/constants/colors.dart';
 import '../../core/constants/sizes.dart';
 import '../../core/helpers/helper_functions.dart';
-import '../cart/widgets/cart_items.dart';
+import '../cart/ui/widgets/cart_items.dart';
 import '../nav_bar/ui/navigation_menu.dart';
 
 class CheckoutScreen extends StatelessWidget {

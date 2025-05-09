@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:nine_aki_bro/views/cart/logic/cubit/cart_cubit/cart_cubit.dart';
 import '../../../constants/colors.dart';
-import '../../../../views/cart/cart.dart';
 
 class TCartCounterIcon extends StatelessWidget {
   const TCartCounterIcon({
@@ -17,41 +18,43 @@ class TCartCounterIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        IconButton(
-          onPressed: () => Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const CartScreen(),
-            ),
-          ),
-          icon: Icon(
-            Iconsax.shopping_bag,
-            color: iconColor,
-          ),
-        ),
-        Positioned(
-          right: 0,
-          child: Container(
-            height: 18,
-            width: 18,
-            decoration: BoxDecoration(
-              color: counterBgColor ?? (TColors.grey),
-              borderRadius: BorderRadius.circular(100),
-            ),
-            child: Center(
-              child: Text(
-                "2",
-                style: Theme.of(context).textTheme.labelLarge!.apply(
-                      color: TColors.primary,
-                      fontSizeFactor: 0.9,
-                    ),
+    return BlocBuilder<CartCubit,CartState>(
+      builder: (context,state) {
+        int count = 0;
+        if (state is CartLoaded) count = state.totalItems;
+        return Stack(
+          children: [
+            IconButton(
+              onPressed: onPressed,
+              icon: Icon(
+                Iconsax.shopping_bag,
+                color: iconColor,
               ),
             ),
-          ),
-        ),
-      ],
+            if (count > 0)
+            Positioned(
+              right: 0,
+              child: Container(
+                height: 18,
+                width: 18,
+                decoration: BoxDecoration(
+                  color: counterBgColor ?? (TColors.grey),
+                  borderRadius: BorderRadius.circular(100),
+                ),
+                child: Center(
+                  child: Text(
+                    "$count",
+                    style: Theme.of(context).textTheme.labelLarge!.apply(
+                          color: TColors.primary,
+                          fontSizeFactor: 0.9,
+                        ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        );
+      }
     );
   }
 }

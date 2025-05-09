@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nine_aki_bro/views/cart/widgets/cart_items.dart';
+import 'package:nine_aki_bro/views/cart/ui/widgets/cart_items.dart';
 import '../../core/constants/sizes.dart';
 import '../../core/widgets/appbar/appbar.dart';
 import '../checkout/checkout.dart';

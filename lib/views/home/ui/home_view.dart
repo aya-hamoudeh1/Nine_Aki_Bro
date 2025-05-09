@@ -16,6 +16,7 @@ import '../../../core/constants/colors.dart';
 import '../../../core/constants/sizes.dart';
 import '../../../core/models/category_model.dart';
 import '../../all_products/all_products.dart';
+import '../../cart/cart.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({
@@ -28,13 +29,36 @@ class HomeView extends StatelessWidget {
     return Scaffold(
       backgroundColor: dark ? TColors.dark : TColors.light,
       body: BlocConsumer<HomeCubit, HomeState>(
-        listener: (context, state) {},
+        listener: (context, state) {
+          if (state is AddToCartSuccess) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                backgroundColor: TColors.primary,
+                content: const Text(
+                  "Product has been added to the cart.",
+                  style: TextStyle(color: TColors.white),
+                ),
+                action: SnackBarAction(
+                  label: 'Go to Cart',
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const CartScreen(),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            );
+          }
+        },
         builder: (context, state) {
           HomeCubit homeCubit = context.read<HomeCubit>();
           List<ProductModel> products = context.read<HomeCubit>().products;
           List<CategoryModel> categories = context.read<HomeCubit>().categories;
           return RefreshIndicator(
-            onRefresh: () async{
+            onRefresh: () async {
               await homeCubit.getCategories();
               await homeCubit.getProducts();
             },
@@ -140,6 +164,9 @@ class HomeView extends StatelessWidget {
                                             products[index].productId!);
                                   },
                                   productModel: products[index],
+                                  onAddToCart: () {
+                                    homeCubit.addToCart(products[index]);
+                                  },
                                 ),
                               ),
                       ],

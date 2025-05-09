@@ -32,7 +32,8 @@ class NineAkiBro extends StatelessWidget {
         BlocProvider(
             create: (_) => HomeCubit()
               ..getCategories()
-              ..getProducts()),
+              ..getProducts()
+              ..getCartItems()),
         BlocProvider(create: (_) => NotificationCubit()..fetchNotifications()),
       ],
       child: MaterialApp(

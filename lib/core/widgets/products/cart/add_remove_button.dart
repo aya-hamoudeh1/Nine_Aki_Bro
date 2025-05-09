@@ -9,7 +9,10 @@ import '../../icons/t_circular_icon.dart';
 class TProductQuantityWithAddRemoveButton extends StatelessWidget {
   const TProductQuantityWithAddRemoveButton({
     super.key,
+    required this.quantity,
   });
+
+  final int quantity;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +33,10 @@ class TProductQuantityWithAddRemoveButton extends StatelessWidget {
               : TColors.light,
         ),
         const SizedBox(width: TSizes.spaceBtwItems),
-        Text('2', style: Theme.of(context).textTheme.titleSmall),
+        Text(
+          quantity.toString(),
+          style: Theme.of(context).textTheme.titleSmall,
+        ),
         const SizedBox(width: TSizes.spaceBtwItems),
         AnimatedCircularIcon(
           onPressed: () {},
