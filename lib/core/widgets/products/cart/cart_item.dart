@@ -4,6 +4,7 @@ import '../../../constants/colors.dart';
 import '../../../constants/sizes.dart';
 import '../../../helpers/helper_functions.dart';
 import '../../../models/product_model.dart';
+import '../../../models/product_variants_model.dart';
 import '../../images/t_rounded_image.dart';
 import '../../texts/product_title_text.dart';
 import '../../texts/t_brand_title_text_with_verified_icon.dart';
@@ -12,8 +13,10 @@ class TCartItem extends StatelessWidget {
   const TCartItem({
     super.key,
     required this.product,
+    required this.variant,
   });
   final ProductModel product;
+  final ProductVariantModel? variant;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -53,13 +56,13 @@ class TCartItem extends StatelessWidget {
                         text: 'Color ',
                         style: Theme.of(context).textTheme.bodySmall),
                     TextSpan(
-                        text: 'Green ',
+                        text: '${variant?.color} ',
                         style: Theme.of(context).textTheme.bodySmall),
                     TextSpan(
                         text: 'Size ',
                         style: Theme.of(context).textTheme.bodySmall),
                     TextSpan(
-                        text: 'UK 08',
+                        text: '${variant?.size} ',
                         style: Theme.of(context).textTheme.bodySmall),
                   ],
                 ),

@@ -174,6 +174,7 @@ class HomeCubit extends Cubit<HomeState> {
         await _apiServices.postData('cart', {
           'for_user': userId,
           'for_product': productModel.productId,
+          'for_variant': productModel.variants,
           'quantity': 1,
         });
       }
@@ -221,6 +222,24 @@ class HomeCubit extends Cubit<HomeState> {
         "is_bought": true,
         "for_product": productId,
       });
+      emit(BuyProductSuccess());
+    } catch (e) {
+      log(e.toString());
+      emit(BuyProductError());
+    }
+  }
+
+  /// Checkout Cart
+  Future<void> checkoutCart() async {
+    emit(BuyProductLoading());
+    try {
+      for (var item in cartItems) {
+        await buyProduct(productId: item.productId!);
+      }
+
+      await _apiServices.deleteData('cart?for_user=eq.$userId');
+      cartItems.clear();
+
       emit(BuyProductSuccess());
     } catch (e) {
       log(e.toString());

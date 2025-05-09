@@ -1,3 +1,4 @@
+import 'package:nine_aki_bro/core/models/product_variants_model.dart';
 import 'package:nine_aki_bro/core/models/purchase_model.dart';
 
 import 'favorite_model.dart';
@@ -15,6 +16,7 @@ class ProductModel {
   List<Favorite>? favoriteProduct;
   List<Purchase>? purchase;
   int quantity;
+  List<ProductVariantModel>? variants;
 
   ProductModel({
     this.productId,
@@ -29,28 +31,31 @@ class ProductModel {
     this.favoriteProduct,
     this.purchase,
     this.quantity = 1,
+    this.variants,
   });
 
   factory ProductModel.fromJson(Map<String, dynamic> json) => ProductModel(
-        productId: json['product_id'] as String?,
-        createdAt: json['created_at'] == null
-            ? null
-            : DateTime.parse(json['created_at'] as String),
-        productName: json['product_name'] as String?,
-        price: json['price'] as String?,
-        oldPrice: json['old_price'] as String?,
-        sale: json['sale'] as String?,
-        description: json['description'] as String?,
-        categoryId: json['category_id'] as String?,
-        imageUrl: json['image_url'] as String?,
-        favoriteProduct: (json['favorite'] as List<dynamic>?)
-            ?.map((e) => Favorite.fromJson(e as Map<String, dynamic>))
-            .toList(),
-        purchase: (json['purchase'] as List<dynamic>?)
-            ?.map((e) => Purchase.fromJson(e as Map<String, dynamic>))
-            .toList(),
-        quantity: json['quantity'] ?? 1,
-      );
+      productId: json['product_id'] as String?,
+      createdAt: json['created_at'] == null
+          ? null
+          : DateTime.parse(json['created_at'] as String),
+      productName: json['product_name'] as String?,
+      price: json['price'] as String?,
+      oldPrice: json['old_price'] as String?,
+      sale: json['sale'] as String?,
+      description: json['description'] as String?,
+      categoryId: json['category_id'] as String?,
+      imageUrl: json['image_url'] as String?,
+      favoriteProduct: (json['favorite'] as List<dynamic>?)
+          ?.map((e) => Favorite.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      purchase: (json['purchase'] as List<dynamic>?)
+          ?.map((e) => Purchase.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      quantity: json['quantity'] ?? 1,
+      variants: (json['product_variants'] as List<dynamic>?)
+          ?.map((e) => ProductVariantModel.fromJson(e as Map<String, dynamic>))
+          .toList());
 
   Map<String, dynamic> toJson() => {
         'product_id': productId,
@@ -65,5 +70,6 @@ class ProductModel {
         'favorite': favoriteProduct?.map((e) => e.toJson).toList(),
         'purchase': purchase?.map((e) => e.toJson).toList(),
         'quantity': quantity,
+        'variants': variants?.map((e) => e.toJson()).toList(),
       };
 }

@@ -5,6 +5,7 @@ import '../../../../core/widgets/icons/t_notification_counter_icon.dart';
 import '../../../../core/widgets/products/cart/cart_menu_icon.dart';
 import '../../../../core/constants/colors.dart';
 import '../../../../core/constants/text_string.dart';
+import '../../../cart/cart.dart';
 import '../../../notifications/logic/cubit/notification_cubit/notification_cubit.dart';
 import '../../../notifications/notification_view.dart';
 
@@ -34,28 +35,32 @@ class THomeAppBar extends StatelessWidget {
       actions: [
         Row(
           children: [
-            BlocBuilder<NotificationCubit,NotificationState>(
-                builder: (context, state) {
-                  final count = context.read<NotificationCubit>().unreadCount;
-                  return TNotificationCounterIcon(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => BlocProvider.value(
-                            value: BlocProvider.of<NotificationCubit>(context)
-                              ..fetchNotifications(),
-                            child: const NotificationsScreen(),
-                          ),
-                        ),
-                      );
-                    },
-                    counter: count,
-                    iconColor: TColors.white,
-                  );
-                }),
+            BlocBuilder<NotificationCubit, NotificationState>(
+              builder: (context, state) {
+                final count = context.read<NotificationCubit>().unreadCount;
+                return TNotificationCounterIcon(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const NotificationsScreen(),
+                      ),
+                    );
+                  },
+                  counter: count,
+                  iconColor: TColors.white,
+                );
+              },
+            ),
             TCartCounterIcon(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const CartScreen(),
+                  ),
+                );
+              },
               iconColor: TColors.white,
             ),
           ],

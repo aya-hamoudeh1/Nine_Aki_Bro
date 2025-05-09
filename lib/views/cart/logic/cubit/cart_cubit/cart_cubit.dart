@@ -4,6 +4,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../../../core/api/api_services.dart';
 import '../../../../../core/models/product_model.dart';
+import '../../../../../core/models/product_variants_model.dart';
 
 part 'cart_state.dart';
 
@@ -12,17 +13,26 @@ class CartCubit extends Cubit<CartState> {
   final ApiServices _apiServices = ApiServices();
   final String userId = Supabase.instance.client.auth.currentUser!.id;
 
-
   Future<void> loadCart() async {
     emit(CartLoading());
     try {
       final response = await _apiServices.getData(
-        'cart?for_user=eq.$userId&select=*,products(*)',
+        'cart?for_user=eq.$userId&select=*,products(*),product_variants(color,size)',
       );
 
       final items = response.data.map<ProductModel>((item) {
         final product = ProductModel.fromJson(item['products']);
         product.quantity = item['quantity'];
+
+        final variantData = item['product_variants'];
+        if (variantData != null) {
+          product.variants = List<ProductVariantModel>.from(
+            variantData.map(
+              (e) => ProductVariantModel.fromJson(e),
+            ),
+          );
+        }
+
         return product;
       }).toList();
 
@@ -36,7 +46,7 @@ class CartCubit extends Cubit<CartState> {
     final currentState = state;
     if (currentState is CartLoaded) {
       final existing = currentState.items.firstWhere(
-            (p) => p.productId == product.productId,
+        (p) => p.productId == product.productId,
         orElse: () => ProductModel(productId: '', quantity: 0),
       );
 

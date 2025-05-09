@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nine_aki_bro/views/checkout/widgets/billing_address_section.dart';
 import 'package:nine_aki_bro/views/checkout/widgets/billing_amount_section.dart';
 import 'package:nine_aki_bro/views/checkout/widgets/billing_payment_section.dart';
+import '../../core/helpers/home_cubit/home_cubit.dart';
 import '../../core/widgets/appbar/appbar.dart';
 import '../../core/widgets/products/cart/coupon_widget.dart';
 import '../../core/widgets/custom_shapes/containers/rounded_container.dart';
@@ -70,25 +72,31 @@ class CheckoutScreen extends StatelessWidget {
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(TSizes.defaultSpace),
         child: ElevatedButton(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => SuccessScreen(
-                  image: 'assets/images/animations/Animation1.json',
-                  title: 'Payment Success',
-                  subTitle: 'Your item will be shipped soon!',
-                  onPressed: () {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const NavigationMenu(),
-                      ),
-                    );
-                  },
+          onPressed: () async {
+            final cubit = context.read<HomeCubit>();
+
+            await cubit.checkoutCart();
+
+            if (context.mounted) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => SuccessScreen(
+                    image: 'assets/images/animations/Animation1.json',
+                    title: 'Payment Success',
+                    subTitle: 'Your item will be shipped soon!',
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const NavigationMenu(),
+                        ),
+                      );
+                    },
+                  ),
                 ),
-              ),
-            );
+              );
+            }
           },
           child: const Text('Checkout \$256.0'),
         ),

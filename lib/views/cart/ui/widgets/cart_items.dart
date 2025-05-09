@@ -7,7 +7,6 @@ import '../../../../core/widgets/products/cart/add_remove_button.dart';
 import '../../../../core/widgets/products/cart/cart_item.dart';
 import '../../../../core/widgets/texts/t_product_price_text.dart';
 
-
 class TCartItems extends StatelessWidget {
   const TCartItems({super.key, this.showAddRemoveButton = true});
 
@@ -26,7 +25,12 @@ class TCartItems extends StatelessWidget {
         return Column(
           children: [
             /// Cart Item
-            TCartItem(product: item),
+            TCartItem(
+              product: item,
+              variant: (item.variants != null && item.variants!.isNotEmpty)
+                  ? item.variants!.first
+                  : null,
+            ),
             if (showAddRemoveButton)
               const SizedBox(height: TSizes.spaceBtwItems),
 
@@ -42,7 +46,8 @@ class TCartItems extends StatelessWidget {
 
                       /// Add Remove Buttons
                       TProductQuantityWithAddRemoveButton(
-                          quantity: item.quantity),
+                        quantity: item.quantity,
+                      ),
                     ],
                   ),
 
