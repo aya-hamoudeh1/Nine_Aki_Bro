@@ -5,7 +5,7 @@ import '../../../../core/widgets/icons/t_notification_counter_icon.dart';
 import '../../../../core/widgets/products/cart/cart_menu_icon.dart';
 import '../../../../core/constants/colors.dart';
 import '../../../../core/constants/text_string.dart';
-import '../../../cart/cart.dart';
+import '../../../cart/ui/cart.dart';
 import '../../../notifications/logic/cubit/notification_cubit/notification_cubit.dart';
 import '../../../notifications/notification_view.dart';
 

@@ -4,6 +4,7 @@ class Purchase {
   DateTime? createdAt;
   String? forProduct;
   bool? isBought;
+  String? status;
 
   Purchase({
     this.purchaseId,
@@ -11,6 +12,7 @@ class Purchase {
     this.createdAt,
     this.forProduct,
     this.isBought,
+    this.status,
   });
 
   factory Purchase.fromJson(Map<String, dynamic> json) => Purchase(
@@ -21,6 +23,7 @@ class Purchase {
         createdAt: json['created_at'] == null
             ? null
             : DateTime.parse(json['created_at'] as String),
+        status: json['status'] as String?,
       );
 
   Map<String, dynamic> toJson() => {
@@ -29,5 +32,6 @@ class Purchase {
         'for_product': forProduct,
         'is_bought': isBought,
         'created_at': createdAt?.toIso8601String(),
+        'status': status,
       };
 }

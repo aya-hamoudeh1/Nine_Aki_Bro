@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
@@ -20,6 +22,7 @@ class TCartCounterIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<CartCubit,CartState>(
       builder: (context,state) {
+        log('CartCubit State: $state');
         int count = 0;
         if (state is CartLoaded) count = state.totalItems;
         return Stack(

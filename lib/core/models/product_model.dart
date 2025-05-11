@@ -17,6 +17,7 @@ class ProductModel {
   List<Purchase>? purchase;
   int quantity;
   List<ProductVariantModel>? variants;
+  String? userOrderStatus;
 
   ProductModel({
     this.productId,
@@ -32,30 +33,34 @@ class ProductModel {
     this.purchase,
     this.quantity = 1,
     this.variants,
+    this.userOrderStatus,
   });
 
   factory ProductModel.fromJson(Map<String, dynamic> json) => ProductModel(
-      productId: json['product_id'] as String?,
-      createdAt: json['created_at'] == null
-          ? null
-          : DateTime.parse(json['created_at'] as String),
-      productName: json['product_name'] as String?,
-      price: json['price'] as String?,
-      oldPrice: json['old_price'] as String?,
-      sale: json['sale'] as String?,
-      description: json['description'] as String?,
-      categoryId: json['category_id'] as String?,
-      imageUrl: json['image_url'] as String?,
-      favoriteProduct: (json['favorite'] as List<dynamic>?)
-          ?.map((e) => Favorite.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      purchase: (json['purchase'] as List<dynamic>?)
-          ?.map((e) => Purchase.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      quantity: json['quantity'] ?? 1,
-      variants: (json['product_variants'] as List<dynamic>?)
-          ?.map((e) => ProductVariantModel.fromJson(e as Map<String, dynamic>))
-          .toList());
+        productId: json['product_id'] as String?,
+        createdAt: json['created_at'] == null
+            ? null
+            : DateTime.parse(json['created_at'] as String),
+        productName: json['product_name'] as String?,
+        price: json['price'] as String?,
+        oldPrice: json['old_price'] as String?,
+        sale: json['sale'] as String?,
+        description: json['description'] as String?,
+        categoryId: json['category_id'] as String?,
+        imageUrl: json['image_url'] as String?,
+        favoriteProduct: (json['favorite'] as List<dynamic>?)
+            ?.map((e) => Favorite.fromJson(e as Map<String, dynamic>))
+            .toList(),
+        purchase: (json['purchase'] as List<dynamic>?)
+            ?.map((e) => Purchase.fromJson(e as Map<String, dynamic>))
+            .toList(),
+        quantity: json['quantity'] ?? 1,
+        variants: (json['product_variants'] as List<dynamic>?)
+            ?.map(
+                (e) => ProductVariantModel.fromJson(e as Map<String, dynamic>))
+            .toList(),
+        userOrderStatus: json['status'] as String?,
+      );
 
   Map<String, dynamic> toJson() => {
         'product_id': productId,
@@ -71,5 +76,6 @@ class ProductModel {
         'purchase': purchase?.map((e) => e.toJson).toList(),
         'quantity': quantity,
         'variants': variants?.map((e) => e.toJson()).toList(),
+        'status': userOrderStatus,
       };
 }

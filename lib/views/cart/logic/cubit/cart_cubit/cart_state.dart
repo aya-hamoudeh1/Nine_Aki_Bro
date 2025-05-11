@@ -5,6 +5,7 @@ sealed class CartState {}
 
 final class CartInitial extends CartState {}
 
+/// Cart
 class CartLoading extends CartState {}
 
 class CartLoaded extends CartState {
@@ -19,4 +20,14 @@ class CartError extends CartState {
   final String message;
 
   CartError(this.message);
+}
+
+/// Cart Checkout
+class CartCheckoutLoading extends CartState {}
+
+class CartCheckoutSuccess extends CartState {}
+
+class CartCheckoutError extends CartState {
+  final String message;
+  CartCheckoutError(this.message);
 }

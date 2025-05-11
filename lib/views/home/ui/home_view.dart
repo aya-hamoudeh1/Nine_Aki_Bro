@@ -16,7 +16,8 @@ import '../../../core/constants/colors.dart';
 import '../../../core/constants/sizes.dart';
 import '../../../core/models/category_model.dart';
 import '../../all_products/all_products.dart';
-import '../../cart/cart.dart';
+import '../../cart/ui/cart.dart';
+import '../../cart/logic/cubit/cart_cubit/cart_cubit.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({
@@ -165,7 +166,35 @@ class HomeView extends StatelessWidget {
                                   },
                                   productModel: products[index],
                                   onAddToCart: () {
-                                    homeCubit.addToCart(products[index]);
+                                    context
+                                        .read<CartCubit>()
+                                        .addToCart(products[index]);
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        backgroundColor: TColors.primary,
+                                        content: const Text(
+                                          'Item added to cart.',
+                                          style: TextStyle(
+                                            color: TColors.white,
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                        ),
+                                        action: SnackBarAction(
+                                          label: 'Go to cart',
+                                          textColor: TColors.primary,
+                                          backgroundColor: TColors.white,
+                                          onPressed: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (_) =>
+                                                    const CartScreen(),
+                                              ),
+                                            );
+                                          },
+                                        ),
+                                      ),
+                                    );
                                   },
                                 ),
                               ),

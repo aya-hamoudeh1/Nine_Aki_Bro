@@ -56,13 +56,13 @@ class TCartItem extends StatelessWidget {
                         text: 'Color ',
                         style: Theme.of(context).textTheme.bodySmall),
                     TextSpan(
-                        text: '${variant?.color} ',
+                        text: '${variant?.color ?? 'Unknown'} ',
                         style: Theme.of(context).textTheme.bodySmall),
                     TextSpan(
                         text: 'Size ',
                         style: Theme.of(context).textTheme.bodySmall),
                     TextSpan(
-                        text: '${variant?.size} ',
+                        text: '${variant?.size ?? 'Unknown'} ',
                         style: Theme.of(context).textTheme.bodySmall),
                   ],
                 ),

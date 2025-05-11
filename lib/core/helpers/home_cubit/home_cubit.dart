@@ -21,7 +21,6 @@ class HomeCubit extends Cubit<HomeState> {
   bool isSearching = false;
   List<ProductModel> categoryProduct = [];
   List<CategoryModel> categories = [];
-  List<ProductModel> cartItems = [];
 
   /// Get All Product
   Future<void> getProducts() async {
@@ -150,69 +149,6 @@ class HomeCubit extends Cubit<HomeState> {
     }
   }
 
-  /// Add To Cart
-  Future<void> addToCart(ProductModel productModel) async {
-    emit(AddToCartLoading());
-    try {
-      ProductModel? existingProduct;
-      try {
-        existingProduct = cartItems.firstWhere(
-          (item) => item.productId == productModel.productId,
-        );
-      } catch (e) {
-        existingProduct = null;
-      }
-
-      if (existingProduct != null) {
-        await _apiServices.patchData(
-            'cart?for_user=eq.$userId&for_product=eq.${productModel.productId}',
-            {
-              'quantity': existingProduct.quantity + 1,
-            });
-        existingProduct.quantity += 1;
-      } else {
-        await _apiServices.postData('cart', {
-          'for_user': userId,
-          'for_product': productModel.productId,
-          'for_variant': productModel.variants,
-          'quantity': 1,
-        });
-      }
-      await getCartItems();
-      emit(AddToCartSuccess());
-    } catch (e) {
-      log(e.toString());
-      emit(AddToCartError());
-    }
-  }
-
-  /// Get Cart Items
-  Future<void> getCartItems() async {
-    try {
-      emit(GetCartItemLoading());
-      cartItems.clear();
-      final response = await _apiServices
-          .getData('cart?for_user=eq.$userId&select=*,products(*)');
-
-      for (var item in response.data) {
-        final productJson = item['products'];
-        final quantity = item['quantity'];
-        final product = ProductModel.fromJson(productJson);
-        product.quantity = quantity;
-        bool alreadyExists =
-            cartItems.any((p) => p.productId == product.productId);
-        if (!alreadyExists) {
-          cartItems.add(product);
-        }
-      }
-
-      emit(GetCartItemSuccess());
-    } catch (e) {
-      log(e.toString());
-      emit(GetCartItemError());
-    }
-  }
-
   /// Buy Product
   Future<void> buyProduct({required String productId}) async {
     emit(BuyProductLoading());
@@ -222,24 +158,6 @@ class HomeCubit extends Cubit<HomeState> {
         "is_bought": true,
         "for_product": productId,
       });
-      emit(BuyProductSuccess());
-    } catch (e) {
-      log(e.toString());
-      emit(BuyProductError());
-    }
-  }
-
-  /// Checkout Cart
-  Future<void> checkoutCart() async {
-    emit(BuyProductLoading());
-    try {
-      for (var item in cartItems) {
-        await buyProduct(productId: item.productId!);
-      }
-
-      await _apiServices.deleteData('cart?for_user=eq.$userId');
-      cartItems.clear();
-
       emit(BuyProductSuccess());
     } catch (e) {
       log(e.toString());

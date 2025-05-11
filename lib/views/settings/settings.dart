@@ -9,7 +9,7 @@ import '../../core/widgets/texts/section_heading.dart';
 import '../../core/constants/colors.dart';
 import '../../core/constants/sizes.dart';
 import '../address/address.dart';
-import '../order/order.dart';
+import '../order/ui/order.dart';
 import '../profile/profile.dart';
 
 class SettingScreen extends StatelessWidget {

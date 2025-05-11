@@ -10,9 +10,13 @@ class TProductQuantityWithAddRemoveButton extends StatelessWidget {
   const TProductQuantityWithAddRemoveButton({
     super.key,
     required this.quantity,
+    required this.onAdd,
+    required this.onRemove,
   });
 
   final int quantity;
+  final VoidCallback onAdd;
+  final VoidCallback onRemove;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +24,7 @@ class TProductQuantityWithAddRemoveButton extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         AnimatedCircularIcon(
-          onPressed: () {},
+          onPressed: onRemove,
           icon: Iconsax.minus,
           height: 32,
           width: 32,
@@ -39,7 +43,7 @@ class TProductQuantityWithAddRemoveButton extends StatelessWidget {
         ),
         const SizedBox(width: TSizes.spaceBtwItems),
         AnimatedCircularIcon(
-          onPressed: () {},
+          onPressed: onAdd,
           icon: Iconsax.add,
           height: 32,
           width: 32,

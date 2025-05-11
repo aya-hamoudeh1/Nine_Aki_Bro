@@ -5,6 +5,7 @@ import 'package:nine_aki_bro/core/helpers/bloc_observer.dart';
 import 'package:nine_aki_bro/views/auth/logic/cubit/authentication_cubit.dart';
 import 'package:nine_aki_bro/views/cart/logic/cubit/cart_cubit/cart_cubit.dart';
 import 'package:nine_aki_bro/views/notifications/logic/cubit/notification_cubit/notification_cubit.dart';
+import 'package:nine_aki_bro/views/order/logic/cubit/order_cubit.dart';
 import 'package:nine_aki_bro/views/splash/splash_screen.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'core/helpers/home_cubit/home_cubit.dart';
@@ -33,12 +34,10 @@ class NineAkiBro extends StatelessWidget {
         BlocProvider(
             create: (_) => HomeCubit()
               ..getCategories()
-              ..getProducts()
-              ..getCartItems()),
+              ..getProducts()),
         BlocProvider(create: (_) => NotificationCubit()..fetchNotifications()),
-        BlocProvider(
-          create: (_) => CartCubit()..loadCart(),
-        ),
+        BlocProvider(create: (_) => CartCubit()..loadCart()),
+        BlocProvider(create: (_) => OrderCubit()..getUserOrders()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
