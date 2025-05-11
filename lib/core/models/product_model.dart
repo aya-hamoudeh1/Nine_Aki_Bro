@@ -59,7 +59,6 @@ class ProductModel {
             ?.map(
                 (e) => ProductVariantModel.fromJson(e as Map<String, dynamic>))
             .toList(),
-        userOrderStatus: json['status'] as String?,
       );
 
   Map<String, dynamic> toJson() => {
@@ -76,6 +75,5 @@ class ProductModel {
         'purchase': purchase?.map((e) => e.toJson).toList(),
         'quantity': quantity,
         'variants': variants?.map((e) => e.toJson()).toList(),
-        'status': userOrderStatus,
       };
 }

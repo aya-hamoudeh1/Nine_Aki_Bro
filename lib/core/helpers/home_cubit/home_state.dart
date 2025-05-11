@@ -53,3 +53,4 @@ final class BuyProductLoading extends HomeState {}
 final class BuyProductSuccess extends HomeState {}
 
 final class BuyProductError extends HomeState {}
+

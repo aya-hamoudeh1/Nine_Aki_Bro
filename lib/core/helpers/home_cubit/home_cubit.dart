@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:nine_aki_bro/core/api/api_services.dart';
 import 'package:nine_aki_bro/core/models/favorite_model.dart';
 import 'package:nine_aki_bro/core/models/product_model.dart';
+import 'package:nine_aki_bro/core/models/purchase_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../models/category_model.dart';
 
@@ -35,8 +36,9 @@ class HomeCubit extends Cubit<HomeState> {
       for (var product in response.data) {
         products.add(ProductModel.fromJson(product));
       }
-      getFavoriteProduct();
       await getCategories();
+      getFavoriteProduct();
+      getUserOrders();
       emit(GetDataSuccess());
     } catch (e) {
       log(e.toString());
@@ -162,6 +164,20 @@ class HomeCubit extends Cubit<HomeState> {
     } catch (e) {
       log(e.toString());
       emit(BuyProductError());
+    }
+  }
+
+  /// Get User Order Product
+  List<ProductModel> userOrders = [];
+  void getUserOrders() {
+    for (ProductModel product in products) {
+      if (product.purchase != null && product.purchase!.isNotEmpty) {
+        for (Purchase userOrder in product.purchase!) {
+          if (userOrder.forUser == userId) {
+            userOrders.add(product);
+          }
+        }
+      }
     }
   }
 }
